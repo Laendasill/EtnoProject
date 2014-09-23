@@ -18,7 +18,7 @@ window.onload = ->
       height: 100
     layer.add(qtek)
     stage.add(layer)
-  img.src = <%= image_tag 'tulow_ziemia.png' %>
+  img.src = asset_path('tulow_ziemia.png')
     
   
   layer.draw

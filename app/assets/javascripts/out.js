@@ -22,7 +22,7 @@ window.onload = function() {
     layer.add(qtek);
     return stage.add(layer);
   };
-  img.src = 'assets/tulow_ziemia.png';
+  img.src = asset_path('tulow_ziemia.png');
   return layer.draw;
 };
 
