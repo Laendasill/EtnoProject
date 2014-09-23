@@ -1,0 +1,12 @@
+{
+  "name": "tes",
+  "devDependencies": {
+    "browserify": "^3.32.1",
+    "watchify": "^0.6.2"
+  },
+  "scripts": {
+    "bundle": "browserify -t coffeeify app/assets/javascripts/canvas/main.js.coffee -o app/assets/javascripts/out.js",
+    "watch-js": "watchify -t coffeeify app/assets/javascripts/canvas/main.js.coffee -o app/assets/javascripts/out.js",
+    "start": "npm run watch-js"
+  }
+}

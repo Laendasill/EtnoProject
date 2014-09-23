@@ -13,4 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree .
+//= require out.js
+//= require canvas/lib/kinetic.min.js
+
