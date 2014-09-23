@@ -8,17 +8,26 @@ window.onload = ->
   layer = new Kinetic.Layer
   
   img = new Image()
-  document.getElementById('ziemia').onclick = -> 
+  test = null
+  img.onload = ->
     console.log("click")
     qtek = new Kinetic.Image
       x: 100,
       y: 100,
       image: img,
       width: 100,
-      height: 100
+      height: 100,
+      visible: false
     layer.add(qtek)
+    test = qtek
     stage.add(layer)
-  img.src = asset_path('tulow_ziemia.png')
+  img.src = image_path('tulow_ziemia.png')
+  console.log(image_path('tulow_ziemia.png'))
+  document.getElementById('ziemia').addEventListener('click', ->
+    test.show()
+    layer.draw()
+    return
+  ,false)
     
   
   layer.draw

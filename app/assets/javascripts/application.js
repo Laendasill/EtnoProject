@@ -16,3 +16,4 @@
 //= require out.js
 //= require canvas/lib/kinetic.min.js
 //= require app_assets
+//= require images.js.coffee.erb
