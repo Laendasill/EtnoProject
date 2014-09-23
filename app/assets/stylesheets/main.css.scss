@@ -1,3 +1,80 @@
 // Place all the styles related to the main controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+//zrobic to za pomoca layout table
+$height: 768px;
+$width: 1366px;
+$def-padding: 10px;
+#top,#down {
+  max-width: 50%;
+  max-hright: 50%;
+}
+#container{
+  background-color: blue;
+  margin-left: auto;
+  margin-right: auto;
+  width: $width;
+  height: $height;
+  padding: 10px;
+}
+#maincontainer{
+  background-color: yellow;
+  width: $width - 20px - $def-padding;
+  height: $height - 145px - $def-padding - 10px;
+  margin: 10px;
+  padding: $def-padding;
+  
+}
+#left {
+  background-color: black;
+  width: 745px;
+  height: 610px - 10px;
+  padding-left: 5px;
+  padding-top: 10px;
+  padding-right: 10px;
+  display: inline-block;
+}
+#left #canvas {
+  background-color: #a40000;
+  display: inline-block;
+  width: 580px;
+  height: 617px - 10px - 10px;
+  float: right;
+}
+#left #leftbar {
+  background-color: #00ff4f;
+  width: 140px - 5px;
+  height: 617px - 10px - 10px;
+  display: inline-block;
+  
+}
+#formcanvas {
+  background-color: #009900;
+  height: 45px;
+  width: 580px;
+  overflow: hidden;
+  display: inline-block;
+  
+  
+}
+
+#right {
+  background-color: #9a4444;
+  height: 600px;
+  width: 560px;
+}
+#titlebar {
+  background-color: white;
+  height: 135px;
+  
+}
+.nav {
+  display: inline;
+  float: right;
+}
+a {
+  display: block;
+}
+ul {
+  float: right;
+}

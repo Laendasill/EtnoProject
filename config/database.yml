@@ -82,4 +82,5 @@ production:
   <<: *default
   database: tes_production
   username: tes
-  password: <%= ENV['TES_DATABASE_PASSWORD'] %>
+  host: localhost
+  password: qweasdcxz
