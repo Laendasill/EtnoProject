@@ -6,7 +6,8 @@ window.onload = ->
     height: 500,
     drawborder: true
   layer = new Kinetic.Layer
-  
+  testdata = $('#canvas')
+  alert testdata.data
   img = new Image()
   test = null
   img.onload = ->
@@ -28,6 +29,13 @@ window.onload = ->
     layer.draw()
     return
   ,false)
-    
+  document.getElementById('mamuna').addEventListener('click', ->
+    tmp = document.getElementById('img_here')
+    img = document.createElement('img')
+    img.src = image_path('mamuna.png')
+    tmp.innerHTML = 
+    tmp.appendChild(img) 
+    return
+  ,false )
   
   layer.draw

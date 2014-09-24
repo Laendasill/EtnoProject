@@ -1,9 +1,20 @@
 %h1 
   canvas
-#canvascontainer
-  #canvas
-    loading canvas...
-%ul
-  %li
-    =image_tag 'tulow_ziemia.png', size: '50', id: 'ziemia'
-  %li
+%table
+  %tr
+    %td
+      %ul
+        %li
+          =image_tag 'tulow_ziemia.png', size: '50', id: 'ziemia'
+        %li
+    %td  
+      #canvascontainer
+        #canvas{ data: @coord}
+          loading canvas...
+    %td{ id: "img_here"}
+      image
+      
+    %td
+      %ul
+        %li
+          =image_tag 'mamuna.png', size: '50', id: 'mamuna'

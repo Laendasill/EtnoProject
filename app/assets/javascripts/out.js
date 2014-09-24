@@ -1,6 +1,6 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/home/production/Documents/Aptana Studio 3 Workspace/test/tes/app/assets/javascripts/canvas/main.js.coffee":[function(require,module,exports){
 window.onload = function() {
-  var img, layer, stage, test;
+  var img, layer, stage, test, testdata;
   stage = new Kinetic.Stage({
     container: 'canvas',
     width: 500,
@@ -8,6 +8,8 @@ window.onload = function() {
     drawborder: true
   });
   layer = new Kinetic.Layer;
+  testdata = $('#canvas');
+  alert(testdata.data);
   img = new Image();
   test = null;
   img.onload = function() {
@@ -30,6 +32,13 @@ window.onload = function() {
   document.getElementById('ziemia').addEventListener('click', function() {
     test.show();
     layer.draw();
+  }, false);
+  document.getElementById('mamuna').addEventListener('click', function() {
+    var tmp;
+    tmp = document.getElementById('img_here');
+    img = document.createElement('img');
+    img.src = image_path('mamuna.png');
+    tmp.innerHTML = tmp.appendChild(img);
   }, false);
   return layer.draw;
 };
