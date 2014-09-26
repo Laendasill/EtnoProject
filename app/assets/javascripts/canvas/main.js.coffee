@@ -1,4 +1,4 @@
-
+loadFromGet = require('./loadFromGet.js.coffee')
 window.onload = ->
   stage = new Kinetic.Stage
     container: 'canvas',
@@ -37,8 +37,20 @@ window.onload = ->
     layer.draw()
     return
   ,false)
-  #***ladowanie zdjec***argumenty:Gdzie zaladowac, glowny img, draggable elements, 
+  #***ladowanie zdjec***argumenty:Gdzie zaladowac, glowny img, draggable elements,
+  mainimg = new Image()
+  mainimg.src = image_path('mamuna.png') 
+  lapy = []
+  lapy[0] = new Image()
+  lapy[0].src = image_path('mamuna_lapy.png')
+  coord = []
+  coord[0] = left: "679px", top: "200px"
+  
   document.getElementById('mamuna').addEventListener('click', ->
+    loadFromGet('img_here',mainimg,lapy,coord,layer,con)
+  , false)
+  layer.draw()  
+###
    tmp = document.getElementById('img_here')
     
       
@@ -62,7 +74,7 @@ window.onload = ->
    x = y = null 
    document.getElementById('drag1').addEventListener('dragstart', (e) ->
   
-     e.dataTransfer.setDragImage(e.target,153,98)
+     e.dataTransfe r.setDragImage(e.target,153,98)
      dragSrc = this
      
      
@@ -88,7 +100,7 @@ window.onload = ->
        
    
     
-    
-  ,false )
  
-  layer.draw
+  ,false )
+###
+  
