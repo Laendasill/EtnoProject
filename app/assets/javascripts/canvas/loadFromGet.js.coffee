@@ -17,7 +17,7 @@ module.exports = (where,mainImg,dropElemts,coords,layer,container)->
   
   dragSrc = null
   dropimg.addEventListener('dragstart', (e) ->
-    e.preventDefault()
+    #TODO read html5 drag and drop in order to make it work as it shoud...
     e.dataTransfer.setDragImage(e.target,dropimg.width/2,dropimg.height/2)
     dragSrc = this
   )   
