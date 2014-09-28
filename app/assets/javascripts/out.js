@@ -15,6 +15,7 @@ module.exports = function(where, mainImg, dropElemts, coords, layer, container) 
   tmp.appendChild(dropimg);
   dragSrc = null;
   dropimg.addEventListener('dragstart', function(e) {
+    e.preventDefault();
     e.dataTransfer.setDragImage(e.target, dropimg.width / 2, dropimg.height / 2);
     return dragSrc = this;
   });
