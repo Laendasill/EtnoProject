@@ -1,4 +1,5 @@
 loadFromGet = require('./loadFromGet.js.coffee')
+
 window.onload = ->
   stage = new Kinetic.Stage
     container: 'canvas',
@@ -8,7 +9,7 @@ window.onload = ->
   layer = new Kinetic.Layer
   
   con = stage.getContainer()
-  console.log(con.offsetWidth)
+  
   
   con.addEventListener('dragover', (e) ->
     e.preventDefault()
@@ -23,15 +24,15 @@ window.onload = ->
       x: 100,
       y: 100,
       image: img,
-      width: 100,
-      height: 100,
+   #   width: 100,
+   #   height: 100,
       visible: false
     layer.add(qtek)
     test = qtek
     stage.add(layer)
   img.src = image_path('tulow_ziemia.png')
   img.id = "img"
-  console.log(image_path('tulow_ziemia.png'))
+  
   document.getElementById('ziemia').addEventListener('click', ->
     test.show()
     layer.draw()
@@ -40,16 +41,69 @@ window.onload = ->
   #***ladowanie zdjec***argumenty:Gdzie zaladowac, glowny img, draggable elements,
   mainimg = new Image()
   mainimg.src = image_path('mamuna.png') 
+  testimg = new Image()
+  testimg.src = image_path('strona_pogladowa.png')
   lapy = []
   lapy[0] = new Image()
   lapy[0].src = image_path('mamuna_lapy.png')
   coord = []
   coord[0] = left: "679px", top: "200px"
+  down = []
+  up = []
+  console.log($('#swap_stuff li img').first().attr('id'))
   
+  $('#als-list').jPages
+    containerID: "swap_stuff",
+    perPage : 3,
+    
+    previous : "span.als-prev",
+    next: "span.als-next"
+
   document.getElementById('mamuna').addEventListener('click', ->
     loadFromGet('img_here',mainimg,lapy,coord,layer,con)
   , false)
-  layer.draw()  
+  document.getElementById('testimg').addEventListener('click', ->
+    loadFromGet('img_here',testimg,lapy,coord,layer,con)
+  , false)
+  layer.draw() 
+  
+  
+###****olac to i sciagnac totem jquery plugin
+  $('#swap_stuff li').( ->
+    alert 'qw'
+    down.push($('#swap_stuff ').last().detach())
+    down.push($('#swap_stuff ').last().detach())
+    down.push($('#swap_stuff ').last().detach())
+    )
+  up = ->
+    if $('#swap_stuff li').first().attr('id') == 'mamuna'
+      return false
+    else
+      down.push($('#swap_stuff ').last().detach())
+      $('#swap_stuff ').first().append(up.pop())
+      
+      return
+  down = ->
+    if $('#swap_stuff li').last().attr('id') == 'last'
+      return false
+    else
+      tp = $('#swap_stuff ').first().detach()
+      up.push(tp)
+      $('#swap_stuff ').last().append(down.pop())
+      
+      return
+  $('#up').click( -> up() )
+  $('#down').click( -> down() )
+ 
+  swapup = (im1,im2) ->
+    tmp = document.createElement('div')
+    im1.parentNode.insertBefore(tmp,im1)
+    im2.parentNode.insertBefore(im1,im2)
+    tmp.parentNode.insertBefore(im2,im1)
+    tmp.parentNode.removeChild(tmp)
+    return
+###    
+ 
 ###
    tmp = document.getElementById('img_here')
     
@@ -103,4 +157,4 @@ window.onload = ->
  
   ,false )
 ###
-  
+    

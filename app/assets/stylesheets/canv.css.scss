@@ -9,3 +9,73 @@
   width: 500px;
   height: 500px;
 }
+/*****************************************************
+ * generic styling for ALS elements: outer container
+ ******************************************************/
+
+.als-container {
+  position: relative;
+  width: 100%;
+  margin: 0px auto;
+  z-index: 0;
+}
+
+/****************************************
+ * viewport styling
+ ***************************************/
+
+.als-viewport {
+  position: relative;
+  overflow: hidden;
+  margin: 0px auto;
+  background-color: black;
+}
+
+/***************************************************
+ * wrapper styling
+ **************************************************/
+
+.als-wrapper {
+  position: relative;
+  /* if you are using a list with <ul> <li> */
+  list-style: none;
+}
+
+/*************************************
+ * item: single list element
+ ************************************/
+
+.als-item {
+  position: relative;
+  display: block;
+  text-align: center;
+  cursor: pointer;
+//  float: left;
+}
+
+/***********************************************
+ * prev, next: buttons styling
+ **********************************************/
+ 
+.als-prev, .als-next {
+  position: absolute;
+  cursor: pointer;
+  clear: both;
+}
+#als-list .als-item {
+
+  min-height: 50px;
+  min-width: 50px;
+  text-align: center;
+}
+#als-list {
+  visibility: hidden;
+}
+#als-list .als-item img {
+  display: block;
+  margin: 0 auto;
+  vertical-align: middle;
+}
+
+
+

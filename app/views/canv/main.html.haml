@@ -15,6 +15,21 @@
       %img{ src: '', id: 'rpimg'}
       
     %td
-      %ul
-        %li
+      %div.als-container{id: "als-list"}
+      %span.als-prev{id: "up"}     
+        up
+      
+      %ul.als-wrapper{ id: "swap_stuff"}
+        %li.als-item
           =image_tag 'mamuna.png', size: '50', id: 'mamuna'
+        %li.als-item
+          =image_tag 'strona_pogladowa.png', size: '50', id: 'testimg'
+        %li.als-item
+          =image_tag 'strona_pogladowa.png', size: '50', id: 'testimg'
+        %li.als-item
+          =image_tag 'strona_pogladowa.png', size: '50', id: 'testimg'
+        %li.als-item
+          =image_tag 'tulow_ziemia.png', size: '50', id: 'last'
+      %span.als-next{ id:"down"}
+        down
+        

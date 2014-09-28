@@ -13,7 +13,6 @@ module.exports = function(where, mainImg, dropElemts, coords, layer, container) 
   dropimg.setAttribute('id', 'drag1');
   dropimg.style.position = 'absolute';
   tmp.appendChild(dropimg);
-  alert(dropimg.id);
   dragSrc = null;
   dropimg.addEventListener('dragstart', function(e) {
     e.dataTransfer.setDragImage(e.target, dropimg.width / 2, dropimg.height / 2);
@@ -47,7 +46,7 @@ var loadFromGet;
 loadFromGet = require('./loadFromGet.js.coffee');
 
 window.onload = function() {
-  var con, coord, img, lapy, layer, mainimg, stage, test;
+  var con, coord, down, img, lapy, layer, mainimg, stage, test, testimg, up;
   stage = new Kinetic.Stage({
     container: 'canvas',
     width: 500,
@@ -56,7 +55,6 @@ window.onload = function() {
   });
   layer = new Kinetic.Layer;
   con = stage.getContainer();
-  console.log(con.offsetWidth);
   con.addEventListener('dragover', function(e) {
     return e.preventDefault();
   });
@@ -69,8 +67,6 @@ window.onload = function() {
       x: 100,
       y: 100,
       image: img,
-      width: 100,
-      height: 100,
       visible: false
     });
     layer.add(qtek);
@@ -79,13 +75,14 @@ window.onload = function() {
   };
   img.src = image_path('tulow_ziemia.png');
   img.id = "img";
-  console.log(image_path('tulow_ziemia.png'));
   document.getElementById('ziemia').addEventListener('click', function() {
     test.show();
     layer.draw();
   }, false);
   mainimg = new Image();
   mainimg.src = image_path('mamuna.png');
+  testimg = new Image();
+  testimg.src = image_path('strona_pogladowa.png');
   lapy = [];
   lapy[0] = new Image();
   lapy[0].src = image_path('mamuna_lapy.png');
@@ -94,11 +91,60 @@ window.onload = function() {
     left: "679px",
     top: "200px"
   };
+  down = [];
+  up = [];
+  console.log($('#swap_stuff li img').first().attr('id'));
+  $('#als-list').jPages({
+    containerID: "swap_stuff",
+    perPage: 3,
+    previous: "span.als-prev",
+    next: "span.als-next"
+  });
   document.getElementById('mamuna').addEventListener('click', function() {
     return loadFromGet('img_here', mainimg, lapy, coord, layer, con);
   }, false);
+  document.getElementById('testimg').addEventListener('click', function() {
+    return loadFromGet('img_here', testimg, lapy, coord, layer, con);
+  }, false);
   return layer.draw();
 };
+
+
+/*****olac to i sciagnac totem jquery plugin
+  $('#swap_stuff li').( ->
+    alert 'qw'
+    down.push($('#swap_stuff ').last().detach())
+    down.push($('#swap_stuff ').last().detach())
+    down.push($('#swap_stuff ').last().detach())
+    )
+  up = ->
+    if $('#swap_stuff li').first().attr('id') == 'mamuna'
+      return false
+    else
+      down.push($('#swap_stuff ').last().detach())
+      $('#swap_stuff ').first().append(up.pop())
+      
+      return
+  down = ->
+    if $('#swap_stuff li').last().attr('id') == 'last'
+      return false
+    else
+      tp = $('#swap_stuff ').first().detach()
+      up.push(tp)
+      $('#swap_stuff ').last().append(down.pop())
+      
+      return
+  $('#up').click( -> up() )
+  $('#down').click( -> down() )
+ 
+  swapup = (im1,im2) ->
+    tmp = document.createElement('div')
+    im1.parentNode.insertBefore(tmp,im1)
+    im2.parentNode.insertBefore(im1,im2)
+    tmp.parentNode.insertBefore(im2,im1)
+    tmp.parentNode.removeChild(tmp)
+    return
+ */
 
 
 /*

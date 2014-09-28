@@ -12,11 +12,12 @@ module.exports = (where,mainImg,dropElemts,coords,layer,container)->
   dropimg.style.top = coords[0].top
   dropimg.setAttribute('id','drag1')
   dropimg.style.position = 'absolute'
+  
   tmp.appendChild(dropimg)
-  alert( dropimg.id )
+  
   dragSrc = null
   dropimg.addEventListener('dragstart', (e) ->
-  
+    
     e.dataTransfer.setDragImage(e.target,dropimg.width/2,dropimg.height/2)
     dragSrc = this
   )   
