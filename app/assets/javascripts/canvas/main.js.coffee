@@ -55,7 +55,7 @@ window.onload = ->
   $('#als-list').jPages
     containerID: "swap_stuff",
     perPage : 3,
-    
+    scrollBrowse: true,
     previous : "span.als-prev",
     next: "span.als-next"
 
