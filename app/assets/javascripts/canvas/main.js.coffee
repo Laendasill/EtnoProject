@@ -7,7 +7,22 @@ window.onload = ->
     height: 500,
     drawborder: true
   layer = new Kinetic.Layer
-  
+  corner = new Kinetic.Group(
+    x: 500,
+    y: 500,
+    draggable: true,
+    dragBoundFunc: (pos) ->
+      newX = pos.x
+      newY = pos.y
+      newX = if pos.x < 0 then 0 else pos.x
+      newX = if pos.x > stage.getWidth() then stage.getWidth() else pos.x
+      newY = if pos.y < 0 then  0 else pos.y
+      newY = if pos.y > stage.getHeight() then stage.getHeight() else pos.y
+      return {
+        x: newX,
+        y: newY
+      }
+    )
   con = stage.getContainer()
   
   

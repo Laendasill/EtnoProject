@@ -1,6 +1,7 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/home/production/Documents/Aptana Studio 3 Workspace/test/tes/app/assets/javascripts/canvas/loadFromGet.js.coffee":[function(require,module,exports){
-module.exports = function(where, mainImg, dropElemts, coords, layer, container) {
-  var dragSrc, dropimg, img, index, tmp;
+module.exports = function(where, mainImg, dropElemts, coords, layer, container, group) {
+  var dragSrc, dropimg, img, shpes, tmp;
+  shpes = null;
   tmp = document.getElementById(where);
   img = document.getElementById('rpimg');
   img.src = mainImg.src;
@@ -12,18 +13,24 @@ module.exports = function(where, mainImg, dropElemts, coords, layer, container) 
   dropimg.style.top = coords[0].top;
   dropimg.setAttribute('id', 'drag1');
   dropimg.style.position = 'absolute';
-  dropimg.style.z - (index = '-1');
+  dropimg.setAttribute('draggable', 'true');
+  dropimg.style.opacity = 0;
   tmp.appendChild(dropimg);
   dragSrc = null;
   dropimg.addEventListener('dragstart', function(e) {
-    e.dataTransfer.setDragImage(e.target, dropimg.width / 2, dropimg.height / 2);
+    e.dataTransfer.setData('txt/html', dropimg.src);
+    e.dataTransfer.setDragImage(dropimg, dropimg.width / 2, dropimg.height / 2);
     return dragSrc = this;
   });
-  return container.addEventListener('drop', function(e) {
+  dropimg.addEventListener('dragend', function(e) {
+    return e.target.style.border = "none";
+  });
+  container.addEventListener('drop', function(e) {
     var image, imageObj, x, y;
     x = e.pageX;
     y = e.pageY;
     e.preventDefault();
+    e.target.style.border = "";
     image = new Kinetic.Image({
       draggable: true,
       x: x - 257,
@@ -34,7 +41,7 @@ module.exports = function(where, mainImg, dropElemts, coords, layer, container) 
     imageObj.src = dragSrc.src;
     return imageObj.onload = function() {
       image.setImage(imageObj);
-      layer.draw();
+      return layer.draw();
     };
   });
 };
@@ -47,7 +54,7 @@ var loadFromGet;
 loadFromGet = require('./loadFromGet.js.coffee');
 
 window.onload = function() {
-  var con, coord, down, img, lapy, layer, mainimg, stage, test, testimg, up;
+  var con, coord, corner, down, img, lapy, layer, mainimg, stage, test, testimg, up;
   stage = new Kinetic.Stage({
     container: 'canvas',
     width: 500,
@@ -55,6 +62,24 @@ window.onload = function() {
     drawborder: true
   });
   layer = new Kinetic.Layer;
+  corner = new Kinetic.Group({
+    x: 500,
+    y: 500,
+    draggable: true,
+    dragBoundFunc: function(pos) {
+      var newX, newY;
+      newX = pos.x;
+      newY = pos.y;
+      newX = pos.x < 0 ? 0 : pos.x;
+      newX = pos.x > stage.getWidth() ? stage.getWidth() : pos.x;
+      newY = pos.y < 0 ? 0 : pos.y;
+      newY = pos.y > stage.getHeight() ? stage.getHeight() : pos.y;
+      return {
+        x: newX,
+        y: newY
+      };
+    }
+  });
   con = stage.getContainer();
   con.addEventListener('dragover', function(e) {
     return e.preventDefault();
