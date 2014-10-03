@@ -1,0 +1,80 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}/
+    %title Etno-cudaki
+    %link{:href => "http://fonts.googleapis.com/css?family=Signika&subset=latin-ext", :rel => "stylesheet", :type => "text/css"}/
+    
+  %body{:style => "background-image: url('/assets/background.jpg');"}
+    .content{:style => "text-align:center;"}
+      %table
+        %tr
+          %td{:colspan => "2", :style => "line-height: 0.2;"}
+            %p{:style => "margin-left:15px;font-size:35px"} 
+              %img{src: '/assets/baner_nazwa.png'}
+            %p{:style => "margin-left:15px;font-size:23px"} strachy inspirowane polskim folklorem
+          %td{:style => "text-align:right;height:90px;"}
+            %input.btn{:type => "button", :value => "Galeria"}/
+            %input.btn{:type => "button", :value => "Co to jest?"}/
+          %td
+        %tr
+          %td{:style => "width:120px;"}
+            
+            .pair
+              /.small{:style => "background-color:#ed5026;"}
+              %img{src: "/assets/ret/mini_tulow_ogien.png", id: "ogien"}
+              .smalltext{:style => "background-color:#eda677;"}
+                %img{src: "/assets/napis_ogien.png"}
+            %br/
+            .pair
+              /.small{:style => "background-color:#205d7f;"}
+              %img{src: "/assets/ret/mini_tulow_woda.png", id: "woda"}
+              .smalltext{:style => "background-color:#8fb8c6;"}
+                %img{src: "/assets/napis_woda.png"}
+            %br/
+            .pair
+              /.small{:style => "background-color:#8c6239;"}
+              %img{src: "/assets/ret/mini_tulow_ziemia.png", id: "ziemia"}
+              .smalltext{:style => "background-color:#c9ac93;"}
+                %img{src: "/assets/napis_ziemia.png"}
+            %br/
+            .pair
+              /.small{:style => "background-color:#b3b3b3;"}
+              %img{src: "/assets/ret/mini_tulow_wiatr.png", id: "wiatr"}
+              .smalltext{:style => "background-color:#e0e0e0;"}
+                %img{src: "/assets/napis_powietrze.png"}
+          %td{:style => "width:500px;"}
+            .mainwindow#canvas
+            .titlewindow
+              %input#nazwa{:name => "nazwa", :type => "text", :value => " Tu wpisz imię swojego cudaka..."}/
+            %input.btn{:type => "image", src: "/assets/napis_gotowe.png", :value => "Gotowe!"}/
+          %td{:style => "width:438px; height:441px;"}
+            .mainsmall#img_here
+              %img{src:'',id: 'rpimg'}
+            .descwindow
+              %p{:style => "padding:0px 8px 8px 8px;"} Stwór podobny do Południcy. Pojawia się w falującym zborzu w czasie najgorętszych godzin dnia. Ma silne ręce którymi łapie pracujących wtedy ludzi. Dzięki swoim włosom może latać szybko jak wiatr.
+          %td{:style => "width:120px;"}
+            %span.als-prev{id: "up_arrow"}     
+              %img{src: '/assets/strzalka_gora.png'}
+            #list
+              
+              %ul{id: "list-container"}
+                %li
+                  
+                  %img{src:'/assets/ret/mini_mamuna.png',id: 'mamuna'}
+                      
+                %li
+                  
+                  %img{src:'/assets/ret/mini_poludnica.png',id: 'poludnica'}
+                %li
+                 
+                  %img{src:'/assets/ret/mini_domowik.png',id: 'domowik'}
+                %li
+                 
+                  %img{src: '/assets/ret/mini_borowy.png',id: 'borowy'}
+                %li
+                 
+                  %img{src: '/assets/ret/mini_swiecnik.png',id: 'swiecnik'}
+            %span.als-next{ id:"down_arrow"}
+              %img{src: '/assets/strzalka_dol.png'}
+              

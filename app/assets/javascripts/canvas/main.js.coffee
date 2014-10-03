@@ -1,12 +1,86 @@
 loadFromGet = require('./loadFromGet.js.coffee')
+preLoad = require('./preLoadAll.js.coffee')
+addLeft = require('./addleft.js.coffee')
+mainstr ='
+/assets/elem/mamuna.png,
+/assets/elem/borowy.png,
+/assets/elem/domowik.png,
+/assets/elem/poludnica.png,
+/assets/elem/swiecnik.png
+'
+tab3 = mainstr.split(',') 
 
-window.onload = ->
-  stage = new Kinetic.Stage
+mainImgs = $.extend(true, {},preLoad(tab3))
+
+dragstr = '
+/assets/elem/drag/mamuna_lapy.png,
+/assets/elem/drag/borowy_glowa.png,
+/assets/elem/drag/domowik_nogi.png,
+/assets/elem/drag/domowik_glowa.png,
+/assets/elem/drag/poludnica_glowa.png,
+/assets/elem/drag/poludnica_lapy.png,
+/assets/elem/drag/swiecnik_glowa.png'
+
+tab5 = dragstr.split(',')
+drags = $.extend(true,{},preLoad(tab5))
+
+str2 = '
+/assets/tulow_ogien.png,
+/assets/tulow_woda.png,
+/assets/tulow_ziemia.png,
+/assets/tulow_wiatr.png'
+tab2 = new Array()
+tab2 = str2.split(',')
+
+tlowie = $.extend(true,{},preLoad(tab2))
+
+str = '
+/assets/ret/mini_tulow_ogien.png,
+/assets/ret/mini_tulow_woda.png,
+/assets/ret/mini_tulow_ziemia.png,
+/assets/ret/mini_tulow_wiatr.png,
+/assets/ret/mini_mamuna.png,
+/assets/ret/mini_poludnica.png,
+/assets/ret/mini_swiecnik.png,
+/assets/ret/mini_domowik.png,
+/assets/ret/mini_borowy.png'
+tab = new Array()
+tab = str.split(',')
+
+minatures = $.extend(true, {},preLoad(tab))
+
+
+$(document).ready ->
+ 
+    
+  $('#up_arrow').click( ->
+    console.log("up")
+    $('#list').animate(
+      scrollTop: '+=100'
+      
+    , 100)
+      
+    return
+  )
+  
+
+  $('#down_arrow').click( ->
+    console.log("down")
+    $('#list').animate(
+      scrollTop: '-=100'
+      
+    , 100)
+      
+    return
+  )
+  
+  window.stage = new Kinetic.Stage
     container: 'canvas',
     width: 500,
     height: 500,
     drawborder: true
-  layer = new Kinetic.Layer
+  window.layer = new Kinetic.Layer
+  window.context = layer.getContext()
   corner = new Kinetic.Group(
     x: 500,
     y: 500,
@@ -23,7 +97,7 @@ window.onload = ->
         y: newY
       }
     )
-  con = stage.getContainer()
+  window.con = window.stage.getContainer()
   
   
   con.addEventListener('dragover', (e) ->
@@ -31,59 +105,46 @@ window.onload = ->
   )
   
     #***Zmiana tlowiow
-  img = new Image()
-  test = null
-  img.onload = ->
-    console.log("click")
-    qtek = new Kinetic.Image
-      x: 100,
-      y: 100,
-      image: img,
-   #   width: 100,
-   #   height: 100,
-      visible: false
-    layer.add(qtek)
-    test = qtek
-    stage.add(layer)
-  img.src = image_path('tulow_ziemia.png')
-  img.id = "img"
+  window.tlows= []
+  window.ison = 0
+  addLeft(tlowie[3],layer,'wiatr')
+  addLeft(tlowie[2],layer,'ziemia')
+  addLeft(tlowie[0],layer,'ogien')
+  addLeft(tlowie[1],layer,'woda')
   
-  document.getElementById('ziemia').addEventListener('click', ->
-    test.show()
-    layer.draw()
-    return
-  ,false)
+  console.log(tlows)
+  polud = []
+  coord = []
+  coord[0] = left: "679px", top: "200px"
+  polud[0] = left: "679px", top: "300px"
+  polud[1] = left: "679px", top: "300px"
   #***ladowanie zdjec***argumenty:Gdzie zaladowac, glowny img, draggable elements,
-  mainimg = new Image()
+
+  window.onload = ->
+    document.getElementById('mamuna').addEventListener('click', ->
+      loadFromGet('img_here',mainImgs[0],[drags[0]],coord,window.layer,window.con)
+    , false)
+    document.getElementById('poludnica').addEventListener('click', ->
+      loadFromGet('img_here',mainImgs[3],[drags[4],drags[5]],polud,window.layer,con)
+    , false)
+    
+    return
+  return
+
+
+  
+  
+###****olac to i sciagnac totem jquery plugin
+    mainimg = new Image()
   mainimg.src = image_path('mamuna.png') 
   testimg = new Image()
   testimg.src = image_path('strona_pogladowa.png')
   lapy = []
   lapy[0] = new Image()
   lapy[0].src = image_path('mamuna_lapy.png')
-  coord = []
-  coord[0] = left: "679px", top: "200px"
+  
   down = []
   up = []
-  console.log($('#swap_stuff li img').first().attr('id'))
-  
-  $('#als-list').jPages
-    containerID: "swap_stuff",
-    perPage : 3,
-    scrollBrowse: true,
-    previous : "span.als-prev",
-    next: "span.als-next"
-
-  document.getElementById('mamuna').addEventListener('click', ->
-    loadFromGet('img_here',mainimg,lapy,coord,layer,con)
-  , false)
-  document.getElementById('testimg').addEventListener('click', ->
-    loadFromGet('img_here',testimg,lapy,coord,layer,con)
-  , false)
-  layer.draw() 
-  
-  
-###****olac to i sciagnac totem jquery plugin
   $('#swap_stuff li').( ->
     alert 'qw'
     down.push($('#swap_stuff ').last().detach())

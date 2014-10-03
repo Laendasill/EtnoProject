@@ -6,57 +6,66 @@ module.exports = (where,mainImg,dropElemts,coords,layer,container,group)->
   
   img = document.getElementById('rpimg')
   img.src = mainImg.src
-  dropimg = dropElemts[0]
+  
+  console.log(dropimg)
   img.ondragstart = -> return false
-  
-  dropimg.style.left = coords[0].left
-  dropimg.style.top = coords[0].top
-  dropimg.setAttribute('id','drag1')
-  dropimg.style.position = 'absolute'
-  dropimg.setAttribute('draggable','true')
-  dropimg.style.opacity = 0
-  
-  tmp.appendChild(dropimg)
-  
   dragSrc = null
-  dropimg.addEventListener('dragstart', (e) ->
-    #TODO read html5 drag and drop in order to make it work as it shoud...
-
-    
-    e.dataTransfer.setData('txt/html',dropimg.src)
-    e.dataTransfer.setDragImage(dropimg,dropimg.width/2,dropimg.height/2)
-    dragSrc = this
-  ) 
-  dropimg.addEventListener('dragend', (e) ->
-    #TODO read html5 drag and drop in order to make it work as it shoud...
-    
-    e.target.style.border = "none"
-    
-  )    
-
+  for i,dropimg in dropElemts
+    dropimg.style.left = coords[i].left
+    dropimg.style.top = coords[i].top
+    dropimg.setAttribute('id','drag1')
+    dropimg.style.position = 'absolute'
+    dropimg.setAttribute('draggable','true')
+    dropimg.style.opacity = 0
+    tmp.appendChild(dropimg)
+  
+  
+   
+    dropimg.addEventListener('dragstart', (e) ->
+      #TODO read html5 drag and drop in order to make it work as it shoud...
+  
+      
+      e.dataTransfer.setData('txt/html',dropimg.src)
+      e.dataTransfer.setDragImage(dropimg,dropimg.width/2,dropimg.height/2)
+      dragSrc = this
+    ) 
+    dropimg.addEventListener('dragend', (e) ->
+      #TODO read html5 drag and drop in order to make it work as it shoud...
+      
+      e.target.style.border = "none"
+      
+    )    
+  offset = $(container).offset()
+  height = dropimg.height 
+  width = dropimg.width 
+  minX = parseInt(offset.left) 
+  maxX = parseInt(offset.left) + stage.getWidth() - width
+  minY = parseInt(offset.top) 
+  maxY = parseInt(offset.top) + stage.getHeight() - height
+  
   container.addEventListener('drop', (e) ->
     x = e.pageX
     y = e.pageY         
     e.preventDefault()
+    src = e.dataTransfer.getData('txt/html')
     e.target.style.border = ""
     image = new Kinetic.Image
       draggable: true,
       
       x: x - 257 ,
-      y: y - 198,
+      y: y - 198
       dragBoundFunc: (pos) ->
-      newX = pos.x
-      newY = pos.y
-      newX = if pos.x < 0 then 0 else pos.x
-      newX = if pos.x > stage.getWidth() then stage.getWidth() else pos.x
-      newY = if pos.y < 0 then  0 else pos.y
-      newY = if pos.y > stage.getHeight() then stage.getHeight() else pos.y
-     `return {
-         x: newX,
-         y: newY
-       }
-      `
-      return  
+      
+        X = pos.x
+        Y = pos.y
+        newX = if X < 0 then 0 else X
+        newX = if X > maxX then maxX else X
+        newY = if Y < 0 then  0 else Y
+        newY = if Y > maxY then maxY else Y
+        console.log("newy #{newY} maxY #{maxY} newX #{newX} maxX #{maxX} minx #{minX} miny #{minY} X #{X}")
+        {x: newX, y: newY }   
+      
+        
         
         
       
@@ -64,7 +73,7 @@ module.exports = (where,mainImg,dropElemts,coords,layer,container,group)->
     layer.add(image)
     
     imageObj = new Image()
-    imageObj.src = dragSrc.src
+    imageObj.src = src
     
     imageObj.onload = ->
       

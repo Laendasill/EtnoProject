@@ -1,23 +1,22 @@
-module.exports = (bckimg,stage,layer)->
-  img = new Image()
-    test = null
-    img.onload = ->
-      console.log("click")
-      qtek = new Kinetic.Image
-        x: 100,
-        y: 100,
-        image: img,
-     #   width: 100,
-     #   height: 100,
-        visible: false
-      layer.add(qtek)
-      test = qtek
-      stage.add(layer)
-    img.src = bckimg.src
-    img.id = "img"
+
+module.exports = (bckimg,layer,id)->
+  
+  
+  
+  qtek = new Kinetic.Image
+    x: 100,
+    y: 100,
+    image: bckimg,
+    visible: false
+  
+  test = qtek
+  window.tlows.push(test)
+  document.getElementById(id).addEventListener('click', ->
     
-    document.getElementById('ziemia').addEventListener('click', ->
-      test.show()
-      layer.draw()
-      return
-    ,false)
+    console.log("click")
+    
+    layer.add(test)
+    test.show()
+    window.stage.add(layer)
+    layer.draw()
+   , false )

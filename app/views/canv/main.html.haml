@@ -9,8 +9,9 @@
         %li
     %td  
       #canvascontainer
-        #canvas{ data: @coord}
+        #canvas
           loading canvas...
+        =button_to "Zapisz", @Image, remote: true
     %td{ id: "img_here"}
       %img{ src: '', id: 'rpimg'}
       

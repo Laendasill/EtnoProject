@@ -81,3 +81,110 @@
   background-color: rgba(238,238,238,1);
 }
 
+      body{
+      font-family:Signika;
+      }
+      table{
+       
+      }
+      td{
+       border:0px solid black;
+      }
+      div .small {
+          border: 2px solid black;
+          border-radius: 15px;
+          width: 80px;
+          height: 80px;
+          margin-left:15px;
+      }
+      
+      div .smalltext {
+          margin-top:10px;
+          border: 2px solid black;
+          border-radius: 10px;
+          width: 80px;
+          height: 25px;
+      margin-left:15px;
+      }
+      
+      div .mainwindow{
+          border: 2px solid black;
+          border-radius: 10px;
+          width: 500px;
+          height: 500px;
+          background-color: #e9edce;
+      }
+      
+      
+      div .descwindow{
+          border: 2px solid black;
+          border-radius: 10px;
+          width: 438px;
+          height: 100px;
+          background-color: #e9edce;
+      margin-top: 10px;
+      margin-left:15px;
+      }
+      
+      div .mainsmall{
+          margin-top: -33px;
+          margin-left:15px;
+          border: 2px solid black;
+          border-radius: 10px;
+          width: 438px;
+          height: 441px;
+          background-color: #e9edce;
+      }
+      
+      div .titlewindow{
+          
+      }
+      
+      .btn {
+      
+        -webkit-border-radius: 12;
+        -moz-border-radius: 12;
+        border-radius: 12px;
+        font-size: 18px;
+        background: #c7b299;
+        padding: 7px 7px 7px 7px;
+        text-decoration: none;
+      display:inline-block;
+        vertical-align:middle;
+        margin-top:6px;
+        margin-left: 10px;
+        border:2px solid black;
+      }
+      
+      .btn:hover {
+        text-decoration: none;
+      }
+      
+      input[type=text]{
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        background: transparent;
+          border: none;
+      border: 2px solid black;
+      border-style: dashed;
+      margin-top:10px;
+          border-radius: 10px;
+          width: 400px;
+          float:left;
+          height: 28px;
+      display:inline-block;
+        vertical-align:middle;
+      }
+ul{
+  list-style: none;
+}
+#list{
+  height: 530px;
+  overflow: hidden;
+  margin: 10px;
+}
+#list ul li{
+  padding: 10px;
+  
+}
+
