@@ -22,7 +22,7 @@ module.exports = (where,mainImg,dropElemts,coords,layer,container,group)->
     q.setAttribute('class','drag1')
     q.style.position = 'absolute'
     q.setAttribute('draggable','true')
-    q.style.opacity = 1
+    q.style.opacity = 0
     tmp.appendChild(q)
     ims.push(q)
     i++

@@ -120,14 +120,14 @@
           border: 2px solid black;
           border-radius: 10px;
           width: 438px;
-          height: 100px;
+          height: 130px;
           background-color: #e9edce;
       margin-top: 10px;
       margin-left:15px;
       }
       
       div .mainsmall{
-          margin-top: -33px;
+          margin-top: 9px;
           margin-left:15px;
           border: 2px solid black;
           border-radius: 10px;
@@ -187,4 +187,7 @@ ul{
   padding: 10px;
   
 }
-
+#desc {
+  margin-top: 0px;
+  font-size: 15px;
+}

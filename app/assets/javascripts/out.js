@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/home/laendasill/rubystuff/EtnoProject/app/assets/javascripts/canvas/addleft.js.coffee":[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/home/production/Documents/Aptana Studio 3 Workspace/test/tes/app/assets/javascripts/canvas/addleft.js.coffee":[function(require,module,exports){
 module.exports = function(bckimg, layer, id) {
   var qtek, test;
   qtek = new Kinetic.Image({
@@ -20,7 +20,7 @@ module.exports = function(bckimg, layer, id) {
 
 
 
-},{}],"/home/laendasill/rubystuff/EtnoProject/app/assets/javascripts/canvas/loadFromGet.js.coffee":[function(require,module,exports){
+},{}],"/home/production/Documents/Aptana Studio 3 Workspace/test/tes/app/assets/javascripts/canvas/loadFromGet.js.coffee":[function(require,module,exports){
 module.exports = function(where, mainImg, dropElemts, coords, layer, container, group) {
   var dragSrc, i, img, ims, minX, minY, n, offset, q, shpes, tmp, _i, _len;
   shpes = null;
@@ -44,7 +44,7 @@ module.exports = function(where, mainImg, dropElemts, coords, layer, container, 
     q.setAttribute('class', 'drag1');
     q.style.position = 'absolute';
     q.setAttribute('draggable', 'true');
-    q.style.opacity = 1;
+    q.style.opacity = 0;
     tmp.appendChild(q);
     ims.push(q);
     i++;
@@ -89,14 +89,27 @@ module.exports = function(where, mainImg, dropElemts, coords, layer, container, 
 
 
 
-},{}],"/home/laendasill/rubystuff/EtnoProject/app/assets/javascripts/canvas/main.js.coffee":[function(require,module,exports){
-var addLeft, drags, dragstr, loadFromGet, mainImgs, mainstr, minatures, preLoad, str, str2, tab, tab2, tab3, tab5, tlowie;
+},{}],"/home/production/Documents/Aptana Studio 3 Workspace/test/tes/app/assets/javascripts/canvas/main.js.coffee":[function(require,module,exports){
+var addLeft, descriptions, drags, dragstr, loadFromGet, mainImgs, mainstr, minatures, preLoad, str, str2, tab, tab2, tab3, tab5, tlowie;
 
 loadFromGet = require('./loadFromGet.js.coffee');
 
 preLoad = require('./preLoadAll.js.coffee');
 
 addLeft = require('./addleft.js.coffee');
+
+descriptions = {
+  'mamuna': 'Mamuna – brzydkie straszydło. Okropna, tłusta, wielka i owłosiona. Mieszka w pobliżu lasów, zagajników i rzek. Jest złośliwa, dzieci często się jej boją. Czyha na nie i podmienia je na niegrzeczne, uprzykrzając życie rodzicom.',
+  'poludnica': 'Południca – okropny stwór. Pojawia się w falującym zbożu w czasie najgorętszych godzin dnia. Ma silne ręce, którymi łapie pracujących wtedy ludzi i sprawia, że mdleją i chorują. Można się jej ustrzec uciekając od południowego skwaru z najbardziej nasłonecznionych miejsc, gdzie najczęściej można ją spotkać.',
+  'swiecnik': 'Świecnik to dziwna zjawa. Pojawia się najczęściej na bagnach, w lasach lub wśród pól. Przybiera postać małego lub większego ognika. Zabłąkanym wskazuje drogę do domu, ale jeśli nie będzie się go traktować z należytym szacunkiem i uwagą, może całkiem poplątać ścieżki, a nawet wprowadzić na niebezpieczne mokradła.',
+  'topielica': 'Topielica – wodna panna. Ma śliczne włosy, jest młoda i piękna. Żyje w wodzie. Pięknym śpiewem wabi do siebie ludzi – przede wszystkim młodzieńców, którzy zapominają przez nią o całym świecie. Ze swoich warkoczy plecie sieć, którą zatrzymuje zapatrzonych w nią wędrowców w jej krainie.',
+  'borowy': 'Borowy – sprawiedliwy strażnik lasu. Żyje w lesie i wygląda prawie jak drzewo. Opiekuje się borem i zwierzętami leśnymi, czasem pomaga zagubionym wędrowcom, ale złości się, kiedy ktoś chce napsocić w lesie. Ma długa brodę, drewniane poroże i jest bardzo wysoki. Legendy mówią, że bardzo dawno temu ludzie udawali się do niego po rady i rozsądzanie sporów.',
+  'cmuch': 'Ćmuch jest bardzo tajemniczym stworzeniem. Przebywa w pobliżu zbiorników wodnych. Jest bardzo szybki i zwinny – zawsze udaje mu się uciec obserwatorowi wylegującemu się na brzegu w pobliżu legowiska tego cudaka. Nie lubi leni – pluszcze, chlupie i wiruje, aż ci się wystraszą i wrócą do pracy.',
+  'domowik': 'Domowik jest dobrym duszkiem. Chowa się w różnych zakątkach domu – w szczelinie pod podłogą, w mysiej dziurze, na cichym zapiecku. Jest zupełnie mały, chociaż bardzo stary. Jeśli dba się o niego, szanuje i karmi – dba o swoich domowników odganiając od nich nieszczęścia, jeśli nie – płata różne figle w domu. Nie da się go zobaczyć – chociaż jest starutki, ma zwinne nogi i jest szybki, dzięki czemu świetnie unika ludzi.',
+  'Klobuk': 'Klobuk – latające dziwadło. Za dnia najczęściej wygląda jak przemoknięta, czarna kura, dlatego ciężko go rozpoznać. W nocy zaś, jego pierzasty ogon płonie w locie na tle czarnego nieba, kiedy zakrada się do sąsiadów, aby podkraść trochę zboża lub monet i zanieść swojemu właścicielowi.',
+  'Planetnik': 'Planetnik to potężny mąż. Unosi się w powietrze i może przenosić na wielkich barkach (lub przeciągać na linie) ciężkie, gradowe chmury, tak aby je odciągnąć od pól. Może też złośliwie sprowadzić opady na uprawy – wszystko zależy od jego humoru i charakteru. Odgania go dźwięk kościelnego dzwonu. Zdarza się tak, że ten czy inny Płanetnik związuje się na zawsze z jedną wsią i pracuje na jej korzyść.',
+  'strzyga': 'Strzyga – straszliwa mara. Zjawia się nocą, siada na piersi i męczy śpiącego człowieka. Można ją napotkać tylko w nocy, często wędruje pod postacią sowy. Kiedy zmieni się w swoją prawdziwą postać, da się ją poznać od razu – ciało ma dziwne, pokurczone i ciężkie, ale skrzydła i szpony sowie. Bardzo uparty i niemiły cudak.'
+};
 
 mainstr = '/assets/elem/mamuna.png, /assets/elem/borowy.png, /assets/elem/domowik.png, /assets/elem/poludnica.png, /assets/elem/swiecnik.png';
 
@@ -127,7 +140,7 @@ tab = str.split(',');
 minatures = $.extend(true, {}, preLoad(tab));
 
 $(document).ready(function() {
-  var coord, corner, polud;
+  var boro, coord, corner, domowik, polud, swiecnik;
   $('#up_arrow').click(function() {
     console.log("up");
     $('#list').animate({
@@ -178,24 +191,67 @@ $(document).ready(function() {
   addLeft(tlowie[1], layer, 'woda');
   polud = [];
   coord = [];
+  boro = [];
+  domowik = [];
+  swiecnik = [];
   coord[0] = {
-    left: "679px",
-    top: "200px"
-  };
-  polud[0] = {
-    left: "679px",
-    top: "300px"
+    left: "728px",
+    top: "259px"
   };
   polud[1] = {
-    left: "900px",
-    top: "100px"
+    left: "681px",
+    top: "132px"
+  };
+  polud[0] = {
+    left: "808px",
+    top: "258px"
+  };
+  boro[0] = {
+    left: "765px",
+    top: "162px"
+  };
+  domowik[0] = {
+    left: "824px",
+    top: "551px"
+  };
+  domowik[1] = {
+    left: "838px",
+    top: "298px"
+  };
+  swiecnik[0] = {
+    left: "849px",
+    top: "209px"
   };
   window.onload = function() {
     document.getElementById('mamuna').addEventListener('click', function() {
-      return loadFromGet('img_here', mainImgs[0], [drags[0]], coord, window.layer, window.con);
+      var q;
+      loadFromGet('img_here', mainImgs[0], [drags[0]], coord, window.layer, window.con);
+      q = document.getElementById('desc');
+      return q.innerHTML = descriptions['mamuna'];
     }, false);
     document.getElementById('poludnica').addEventListener('click', function() {
-      return loadFromGet('img_here', mainImgs[3], [drags[5], drags[4]], polud, window.layer, con);
+      var q;
+      loadFromGet('img_here', mainImgs[3], [drags[5], drags[4]], polud, window.layer, con);
+      q = document.getElementById('desc');
+      return q.innerHTML = descriptions['poludnica'];
+    }, false);
+    document.getElementById('borowy').addEventListener('click', function() {
+      var q;
+      loadFromGet('img_here', mainImgs[1], [drags[1]], boro, window.layer, con);
+      q = document.getElementById('desc');
+      return q.innerHTML = descriptions['borowy'];
+    }, false);
+    document.getElementById('domowik').addEventListener('click', function() {
+      var q;
+      loadFromGet('img_here', mainImgs[2], [drags[2], drags[3]], domowik, window.layer, con);
+      q = document.getElementById('desc');
+      return q.innerHTML = descriptions['domowik'];
+    }, false);
+    document.getElementById('swiecnik').addEventListener('click', function() {
+      var q;
+      loadFromGet('img_here', mainImgs[4], [drags[6]], swiecnik, window.layer, con);
+      q = document.getElementById('desc');
+      return q.innerHTML = descriptions['swiecnik'];
     }, false);
   };
 });
@@ -304,7 +360,7 @@ $(document).ready(function() {
 
 
 
-},{"./addleft.js.coffee":"/home/laendasill/rubystuff/EtnoProject/app/assets/javascripts/canvas/addleft.js.coffee","./loadFromGet.js.coffee":"/home/laendasill/rubystuff/EtnoProject/app/assets/javascripts/canvas/loadFromGet.js.coffee","./preLoadAll.js.coffee":"/home/laendasill/rubystuff/EtnoProject/app/assets/javascripts/canvas/preLoadAll.js.coffee"}],"/home/laendasill/rubystuff/EtnoProject/app/assets/javascripts/canvas/preLoadAll.js.coffee":[function(require,module,exports){
+},{"./addleft.js.coffee":"/home/production/Documents/Aptana Studio 3 Workspace/test/tes/app/assets/javascripts/canvas/addleft.js.coffee","./loadFromGet.js.coffee":"/home/production/Documents/Aptana Studio 3 Workspace/test/tes/app/assets/javascripts/canvas/loadFromGet.js.coffee","./preLoadAll.js.coffee":"/home/production/Documents/Aptana Studio 3 Workspace/test/tes/app/assets/javascripts/canvas/preLoadAll.js.coffee"}],"/home/production/Documents/Aptana Studio 3 Workspace/test/tes/app/assets/javascripts/canvas/preLoadAll.js.coffee":[function(require,module,exports){
 var mainImg;
 
 mainImg = [];
@@ -323,4 +379,4 @@ module.exports = function(main) {
 
 
 
-},{}]},{},["/home/laendasill/rubystuff/EtnoProject/app/assets/javascripts/canvas/main.js.coffee"]);
+},{}]},{},["/home/production/Documents/Aptana Studio 3 Workspace/test/tes/app/assets/javascripts/canvas/main.js.coffee"]);
