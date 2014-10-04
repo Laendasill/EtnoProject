@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/home/production/Documents/Aptana Studio 3 Workspace/test/tes/app/assets/javascripts/canvas/addleft.js.coffee":[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/home/laendasill/rubystuff/EtnoProject/app/assets/javascripts/canvas/addleft.js.coffee":[function(require,module,exports){
 module.exports = function(bckimg, layer, id) {
   var qtek, test;
   qtek = new Kinetic.Image({
@@ -20,9 +20,9 @@ module.exports = function(bckimg, layer, id) {
 
 
 
-},{}],"/home/production/Documents/Aptana Studio 3 Workspace/test/tes/app/assets/javascripts/canvas/loadFromGet.js.coffee":[function(require,module,exports){
+},{}],"/home/laendasill/rubystuff/EtnoProject/app/assets/javascripts/canvas/loadFromGet.js.coffee":[function(require,module,exports){
 module.exports = function(where, mainImg, dropElemts, coords, layer, container, group) {
-  var dragSrc, i, img, ims, minX, minY, offset, shpes, tmp, _i;
+  var dragSrc, i, img, ims, minX, minY, n, offset, q, shpes, tmp, _i, _len;
   shpes = null;
   $('.drag1').remove();
   tmp = document.getElementById(where);
@@ -35,24 +35,27 @@ module.exports = function(where, mainImg, dropElemts, coords, layer, container, 
   dragSrc = null;
   ims = [];
   i = 0;
-  for (i = _i = 0; _i < 2; i = ++_i) {
-    console.log(i);
-    dropElemts[i].style.left = coords[i].left;
-    dropElemts[i].style.top = coords[i].top;
-    dropElemts[i].setAttribute('class', 'drag1');
-    dropElemts[i].style.position = 'absolute';
-    dropElemts[i].setAttribute('draggable', 'true');
-    dropElemts[i].style.opacity = 1;
-    tmp.appendChild(dropElemts[i]);
-    ims.push(dropElemts[i]);
-    dropElemts[i].addEventListener('dragstart', function(e) {
+  n = dropElemts.length;
+  for (_i = 0, _len = dropElemts.length; _i < _len; _i++) {
+    q = dropElemts[_i];
+    console.log(i + 'n=' + n);
+    q.style.left = coords[i].left;
+    q.style.top = coords[i].top;
+    q.setAttribute('class', 'drag1');
+    q.style.position = 'absolute';
+    q.setAttribute('draggable', 'true');
+    q.style.opacity = 1;
+    tmp.appendChild(q);
+    ims.push(q);
+    i++;
+    q.addEventListener('dragstart', function(e) {
       e.dataTransfer.setData('src', this.src);
       e.dataTransfer.setData('width', this.width);
       e.dataTransfer.setData('height', this.height);
       e.dataTransfer.setDragImage(this, this.width / 2, this.height / 2);
       return dragSrc = this;
     }, false);
-    dropElemts[i].addEventListener('dragend', function(e) {
+    q.addEventListener('dragend', function(e) {
       return e.target.style.border = "none";
     }, false);
   }
@@ -65,6 +68,7 @@ module.exports = function(where, mainImg, dropElemts, coords, layer, container, 
     y = e.pageY;
     e.preventDefault();
     r = layer.getCanvas();
+    console.log("jarejarejare");
     src = e.dataTransfer.getData('src');
     console.log(src[1]);
     e.target.style.border = "";
@@ -85,7 +89,7 @@ module.exports = function(where, mainImg, dropElemts, coords, layer, container, 
 
 
 
-},{}],"/home/production/Documents/Aptana Studio 3 Workspace/test/tes/app/assets/javascripts/canvas/main.js.coffee":[function(require,module,exports){
+},{}],"/home/laendasill/rubystuff/EtnoProject/app/assets/javascripts/canvas/main.js.coffee":[function(require,module,exports){
 var addLeft, drags, dragstr, loadFromGet, mainImgs, mainstr, minatures, preLoad, str, str2, tab, tab2, tab3, tab5, tlowie;
 
 loadFromGet = require('./loadFromGet.js.coffee');
@@ -300,7 +304,7 @@ $(document).ready(function() {
 
 
 
-},{"./addleft.js.coffee":"/home/production/Documents/Aptana Studio 3 Workspace/test/tes/app/assets/javascripts/canvas/addleft.js.coffee","./loadFromGet.js.coffee":"/home/production/Documents/Aptana Studio 3 Workspace/test/tes/app/assets/javascripts/canvas/loadFromGet.js.coffee","./preLoadAll.js.coffee":"/home/production/Documents/Aptana Studio 3 Workspace/test/tes/app/assets/javascripts/canvas/preLoadAll.js.coffee"}],"/home/production/Documents/Aptana Studio 3 Workspace/test/tes/app/assets/javascripts/canvas/preLoadAll.js.coffee":[function(require,module,exports){
+},{"./addleft.js.coffee":"/home/laendasill/rubystuff/EtnoProject/app/assets/javascripts/canvas/addleft.js.coffee","./loadFromGet.js.coffee":"/home/laendasill/rubystuff/EtnoProject/app/assets/javascripts/canvas/loadFromGet.js.coffee","./preLoadAll.js.coffee":"/home/laendasill/rubystuff/EtnoProject/app/assets/javascripts/canvas/preLoadAll.js.coffee"}],"/home/laendasill/rubystuff/EtnoProject/app/assets/javascripts/canvas/preLoadAll.js.coffee":[function(require,module,exports){
 var mainImg;
 
 mainImg = [];
@@ -319,4 +323,4 @@ module.exports = function(main) {
 
 
 
-},{}]},{},["/home/production/Documents/Aptana Studio 3 Workspace/test/tes/app/assets/javascripts/canvas/main.js.coffee"]);
+},{}]},{},["/home/laendasill/rubystuff/EtnoProject/app/assets/javascripts/canvas/main.js.coffee"]);

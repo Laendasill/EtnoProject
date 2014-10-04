@@ -14,20 +14,22 @@ module.exports = (where,mainImg,dropElemts,coords,layer,container,group)->
   
   ims = []
   i=0
-  for i in [0...2]
-    console.log(i)
-    dropElemts[i].style.left = coords[i].left
-    dropElemts[i].style.top = coords[i].top
-    dropElemts[i].setAttribute('class','drag1')
-    dropElemts[i].style.position = 'absolute'
-    dropElemts[i].setAttribute('draggable','true')
-    dropElemts[i].style.opacity = 1
-    tmp.appendChild(dropElemts[i])
-    ims.push(dropElemts[i])
-    
+  n = dropElemts.length 
+  for q in dropElemts 
+    console.log(i + 'n=' +  n)
+    q.style.left = coords[i].left
+    q.style.top = coords[i].top
+    q.setAttribute('class','drag1')
+    q.style.position = 'absolute'
+    q.setAttribute('draggable','true')
+    q.style.opacity = 1
+    tmp.appendChild(q)
+    ims.push(q)
+    i++
+
     
    
-    dropElemts[i].addEventListener('dragstart', (e) ->
+    q.addEventListener('dragstart', (e) ->
       #TODO read html5 drag and drop in order to make it work as it shoud...
   
       
@@ -39,7 +41,7 @@ module.exports = (where,mainImg,dropElemts,coords,layer,container,group)->
       e.dataTransfer.setDragImage(this,this.width/2,this.height/2)
       dragSrc = this
     ,false) 
-    dropElemts[i].addEventListener('dragend', (e) ->
+    q.addEventListener('dragend', (e) ->
       #TODO read html5 drag and drop in order to make it work as it shoud...
       
       e.target.style.border = "none"
@@ -59,7 +61,7 @@ module.exports = (where,mainImg,dropElemts,coords,layer,container,group)->
     y = e.pageY         
     e.preventDefault()
     r = layer.getCanvas()
-    
+    console.log("jarejarejare") 
     src = e.dataTransfer.getData('src')
     console.log(src[1])
     e.target.style.border = ""
