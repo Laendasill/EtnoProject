@@ -112,12 +112,12 @@ $(document).ready ->
   addLeft(tlowie[0],layer,'ogien')
   addLeft(tlowie[1],layer,'woda')
   
-  console.log(tlows)
+  
   polud = []
   coord = []
   coord[0] = left: "679px", top: "200px"
   polud[0] = left: "679px", top: "300px"
-  polud[1] = left: "679px", top: "300px"
+  polud[1] = left: "900px", top: "100px"
   #***ladowanie zdjec***argumenty:Gdzie zaladowac, glowny img, draggable elements,
 
   window.onload = ->
@@ -125,7 +125,7 @@ $(document).ready ->
       loadFromGet('img_here',mainImgs[0],[drags[0]],coord,window.layer,window.con)
     , false)
     document.getElementById('poludnica').addEventListener('click', ->
-      loadFromGet('img_here',mainImgs[3],[drags[4],drags[5]],polud,window.layer,con)
+      loadFromGet('img_here',mainImgs[3],[drags[5],drags[4]],polud,window.layer,con)
     , false)
     
     return

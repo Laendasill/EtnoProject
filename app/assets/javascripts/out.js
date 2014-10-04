@@ -22,66 +22,56 @@ module.exports = function(bckimg, layer, id) {
 
 },{}],"/home/production/Documents/Aptana Studio 3 Workspace/test/tes/app/assets/javascripts/canvas/loadFromGet.js.coffee":[function(require,module,exports){
 module.exports = function(where, mainImg, dropElemts, coords, layer, container, group) {
-  var dragSrc, dropimg, height, i, img, maxX, maxY, minX, minY, offset, shpes, tmp, width, _i, _len;
+  var dragSrc, i, img, ims, minX, minY, offset, shpes, tmp, _i;
   shpes = null;
+  $('.drag1').remove();
   tmp = document.getElementById(where);
   img = document.getElementById('rpimg');
   img.src = mainImg.src;
-  console.log(dropimg);
+  console.log(dropElemts.length);
   img.ondragstart = function() {
     return false;
   };
   dragSrc = null;
-  for (dropimg = _i = 0, _len = dropElemts.length; _i < _len; dropimg = ++_i) {
-    i = dropElemts[dropimg];
-    dropimg.style.left = coords[i].left;
-    dropimg.style.top = coords[i].top;
-    dropimg.setAttribute('id', 'drag1');
-    dropimg.style.position = 'absolute';
-    dropimg.setAttribute('draggable', 'true');
-    dropimg.style.opacity = 0;
-    tmp.appendChild(dropimg);
-    dropimg.addEventListener('dragstart', function(e) {
-      e.dataTransfer.setData('txt/html', dropimg.src);
-      e.dataTransfer.setDragImage(dropimg, dropimg.width / 2, dropimg.height / 2);
+  ims = [];
+  i = 0;
+  for (i = _i = 0; _i < 2; i = ++_i) {
+    console.log(i);
+    dropElemts[i].style.left = coords[i].left;
+    dropElemts[i].style.top = coords[i].top;
+    dropElemts[i].setAttribute('class', 'drag1');
+    dropElemts[i].style.position = 'absolute';
+    dropElemts[i].setAttribute('draggable', 'true');
+    dropElemts[i].style.opacity = 1;
+    tmp.appendChild(dropElemts[i]);
+    ims.push(dropElemts[i]);
+    dropElemts[i].addEventListener('dragstart', function(e) {
+      e.dataTransfer.setData('src', this.src);
+      e.dataTransfer.setData('width', this.width);
+      e.dataTransfer.setData('height', this.height);
+      e.dataTransfer.setDragImage(this, this.width / 2, this.height / 2);
       return dragSrc = this;
-    });
-    dropimg.addEventListener('dragend', function(e) {
+    }, false);
+    dropElemts[i].addEventListener('dragend', function(e) {
       return e.target.style.border = "none";
-    });
+    }, false);
   }
   offset = $(container).offset();
-  height = dropimg.height;
-  width = dropimg.width;
   minX = parseInt(offset.left);
-  maxX = parseInt(offset.left) + stage.getWidth() - width;
   minY = parseInt(offset.top);
-  maxY = parseInt(offset.top) + stage.getHeight() - height;
   container.addEventListener('drop', function(e) {
-    var image, imageObj, src, x, y;
+    var image, imageObj, r, src, x, y;
     x = e.pageX;
     y = e.pageY;
     e.preventDefault();
-    src = e.dataTransfer.getData('txt/html');
+    r = layer.getCanvas();
+    src = e.dataTransfer.getData('src');
+    console.log(src[1]);
     e.target.style.border = "";
     image = new Kinetic.Image({
       draggable: true,
-      x: x - 257,
-      y: y - 198,
-      dragBoundFunc: function(pos) {
-        var X, Y, newX, newY;
-        X = pos.x;
-        Y = pos.y;
-        newX = X < 0 ? 0 : X;
-        newX = X > maxX ? maxX : X;
-        newY = Y < 0 ? 0 : Y;
-        newY = Y > maxY ? maxY : Y;
-        console.log("newy " + newY + " maxY " + maxY + " newX " + newX + " maxX " + maxX + " minx " + minX + " miny " + minY + " X " + X);
-        return {
-          x: newX,
-          y: newY
-        };
-      }
+      x: x - minX - e.dataTransfer.getData('width') / 2,
+      y: y - minY - e.dataTransfer.getData('height') / 2
     });
     layer.add(image);
     imageObj = new Image();
@@ -182,7 +172,6 @@ $(document).ready(function() {
   addLeft(tlowie[2], layer, 'ziemia');
   addLeft(tlowie[0], layer, 'ogien');
   addLeft(tlowie[1], layer, 'woda');
-  console.log(tlows);
   polud = [];
   coord = [];
   coord[0] = {
@@ -194,15 +183,15 @@ $(document).ready(function() {
     top: "300px"
   };
   polud[1] = {
-    left: "679px",
-    top: "300px"
+    left: "900px",
+    top: "100px"
   };
   window.onload = function() {
     document.getElementById('mamuna').addEventListener('click', function() {
       return loadFromGet('img_here', mainImgs[0], [drags[0]], coord, window.layer, window.con);
     }, false);
     document.getElementById('poludnica').addEventListener('click', function() {
-      return loadFromGet('img_here', mainImgs[3], [drags[4], drags[5]], polud, window.layer, con);
+      return loadFromGet('img_here', mainImgs[3], [drags[5], drags[4]], polud, window.layer, con);
     }, false);
   };
 });
