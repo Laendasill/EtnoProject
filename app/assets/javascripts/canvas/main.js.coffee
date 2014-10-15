@@ -140,7 +140,6 @@ $(document).ready ->
   #***ladowanie zdjec***argumenty:Gdzie zaladowac, glowny img, draggable elements,
 
   window.onload = ->
-    window.f1 = 0 
     document.getElementById('mamuna').addEventListener('click', ->
       loadFromGet('img_here',mainImgs[0],[drags[0]],coord,window.layer,window.con)
       q = document.getElementById('desc')
@@ -148,28 +147,28 @@ $(document).ready ->
       q.innerHTML = descriptions['mamuna']
     , false)
     document.getElementById('poludnica').addEventListener('click', ->
-      loadFromGet('img_here',mainImgs[3],[drags[5],drags[4]],polud,window.layer,window.con)
+      loadFromGet('img_here',mainImgs[3],[drags[5],drags[4]],polud,window.layer,con)
       q = document.getElementById('desc')
       
       q.innerHTML = descriptions['poludnica']
       
     , false)
     document.getElementById('borowy').addEventListener('click', ->
-      loadFromGet('img_here',mainImgs[1],[drags[1]],boro,window.layer,window.con)
+      loadFromGet('img_here',mainImgs[1],[drags[1]],boro,window.layer,con)
       q = document.getElementById('desc')
       
       q.innerHTML = descriptions['borowy']
       
     , false)
     document.getElementById('domowik').addEventListener('click', ->
-      loadFromGet('img_here',mainImgs[2],[drags[2],drags[3]],domowik,window.layer,window.con)
+      loadFromGet('img_here',mainImgs[2],[drags[2],drags[3]],domowik,window.layer,con)
       q = document.getElementById('desc')
       
       q.innerHTML = descriptions['domowik']
       
     , false)
     document.getElementById('swiecnik').addEventListener('click', ->
-      loadFromGet('img_here',mainImgs[4],[drags[6]],swiecnik,window.layer,window.con)
+      loadFromGet('img_here',mainImgs[4],[drags[6]],swiecnik,window.layer,con)
       q = document.getElementById('desc')
       
       q.innerHTML = descriptions['swiecnik']
@@ -177,7 +176,6 @@ $(document).ready ->
     , false)
     
     return
-  
   return
 
 

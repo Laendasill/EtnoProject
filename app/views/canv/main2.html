@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tes</title>
+  <link data-turbolinks-track="true" href="/assets/canv.css?body=1" media="all" rel="stylesheet" />
+<link data-turbolinks-track="true" href="/assets/application.css?body=1" media="all" rel="stylesheet" />
+  <script data-turbolinks-track="true" src="/assets/jquery.js?body=1"></script>
+<script data-turbolinks-track="true" src="/assets/jquery-ui/core.js?body=1"></script>
+<script data-turbolinks-track="true" src="/assets/jquery-ui/widget.js?body=1"></script>
+<script data-turbolinks-track="true" src="/assets/jquery-ui/mouse.js?body=1"></script>
+<script data-turbolinks-track="true" src="/assets/jquery-ui/draggable.js?body=1"></script>
+<script data-turbolinks-track="true" src="/assets/jquery-ui/droppable.js?body=1"></script>
+<script data-turbolinks-track="true" src="/assets/jquery_ujs.js?body=1"></script>
+<script data-turbolinks-track="true" src="/assets/turbolinks.js?body=1"></script>
+<script data-turbolinks-track="true" src="/assets/out.js?body=1"></script>
+<script data-turbolinks-track="true" src="/assets/canvas/lib/kinetic.min.js?body=1"></script>
+<script data-turbolinks-track="true" src="/assets/app_assets.js?body=1"></script>
+<script data-turbolinks-track="true" src="/assets/images.js?body=1"></script>
+<script data-turbolinks-track="true" src="/assets/canvas/jPages.min.js?body=1"></script>
+<script data-turbolinks-track="true" src="/assets/application.js?body=1"></script>
+  <meta content="authenticity_token" name="csrf-param" />
+<meta content="lrDEYdfK2rDJpKZAJz2ImmzMpAxXkmWODpziz1B5g3w=" name="csrf-token" />
+</head>
+<body>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <title>Etno-cudaki</title>
+    <link href='http://fonts.googleapis.com/css?family=Signika&amp;subset=latin-ext' rel='stylesheet' type='text/css'>
+  </head>
+  <body style="background-image: url('/assets/background.jpg');">
+    <div class='content' style='text-align:center;'>
+      <table>
+        <tr>
+          <td colspan='2' style='line-height: 0.2;'>
+            <p style='margin-left:15px;font-size:35px'>
+              <img src='/assets/baner_nazwa.png'>
+            </p>
+            <p style='margin-left:15px;font-size:23px'>strachy inspirowane polskim folklorem</p>
+          </td>
+          <td style='text-align:right;height:90px;'>
+            <input class='btn' type='button' value='Galeria'>
+            <input class='btn' type='button' value='Co to jest?'>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td style='width:120px;'>
+            <div class='pair'>
+              <!-- .small{:style => "background-color:#ed5026;"} -->
+              <img id='ogien' src='/assets/ret/mini_tulow_ogien.png'>
+              <div class='smalltext' style='background-color:#eda677;'>
+                <img src='/assets/napis_ogien.png'>
+              </div>
+            </div>
+            <br>
+            <div class='pair'>
+              <!-- .small{:style => "background-color:#205d7f;"} -->
+              <img id='woda' src='/assets/ret/mini_tulow_woda.png'>
+              <div class='smalltext' style='background-color:#8fb8c6;'>
+                <img src='/assets/napis_woda.png'>
+              </div>
+            </div>
+            <br>
+            <div class='pair'>
+              <!-- .small{:style => "background-color:#8c6239;"} -->
+              <img id='ziemia' src='/assets/ret/mini_tulow_ziemia.png'>
+              <div class='smalltext' style='background-color:#c9ac93;'>
+                <img src='/assets/napis_ziemia.png'>
+              </div>
+            </div>
+            <br>
+            <div class='pair'>
+              <!-- .small{:style => "background-color:#b3b3b3;"} -->
+              <img id='wiatr' src='/assets/ret/mini_tulow_wiatr.png'>
+              <div class='smalltext' style='background-color:#e0e0e0;'>
+                <img src='/assets/napis_powietrze.png'>
+              </div>
+            </div>
+          </td>
+          <td style='width:500px;'>
+            <div class='mainwindow' id='canvas'></div>
+            <div class='titlewindow'>
+              <input id='nazwa' name='nazwa' type='text' value=' Tu wpisz imię swojego cudaka...'>
+            </div>
+            <input class='btn' src='/assets/napis_gotowe.png' type='image' value='Gotowe!'>
+          </td>
+          <td style='width:438px; height:441px;'>
+            <div class='mainsmall' id='img_here'>
+              <img alt='Wybierz stwora -&gt;' id='rpimg' src=''>
+            </div>
+            <div class='descwindow'>
+              <p id='desc' style='padding:0px 8px 8px 8px;'>Stwór podobny do Południcy. Pojawia się w falującym zborzu w czasie najgorętszych godzin dnia. Ma silne ręce którymi łapie pracujących wtedy ludzi. Dzięki swoim włosom może latać szybko jak wiatr.</p>
+            </div>
+          </td>
+          <td id='align' style='width:120px;'>
+            <span class='als-prev' id='up_arrow'>
+              <img src='/assets/strzalka_gora.png'>
+            </span>
+            <div id='list'>
+              <ul id='list-container'>
+                <li>
+                  <img id='mamuna' src='/assets/ret/mini_mamuna.png'>
+                </li>
+                <li>
+                  <img id='poludnica' src='/assets/ret/mini_poludnica.png'>
+                </li>
+                <li>
+                  <img id='domowik' src='/assets/ret/mini_domowik.png'>
+                </li>
+                <li>
+                  <img id='borowy' src='/assets/ret/mini_borowy.png'>
+                </li>
+                <li>
+                  <img id='swiecnik' src='/assets/ret/mini_swiecnik.png'>
+                </li>
+              </ul>
+            </div>
+            <span class='als-next' id='down_arrow'>
+              <img src='/assets/strzalka_dol.png'>
+            </span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>
+
+
+</body>
+</html>
+
