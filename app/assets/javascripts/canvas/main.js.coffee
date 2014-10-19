@@ -22,8 +22,8 @@ mainstr ='
 '
 tab3 = mainstr.split(',') 
 
-mainImgs = $.extend(true, {},preLoad(tab3))
-
+mainImgs = $.extend(true, {},preLoad(tab3)) # copying mainImg from preLoad didin't work well (shallow copy) 
+                                            # using jquery extend() to make hard copy
 dragstr = '
 /assets/elem/drag/mamuna_lapy.png,
 /assets/elem/drag/borowy_glowa.png,
@@ -61,11 +61,18 @@ tab = str.split(',')
 
 minatures = $.extend(true, {},preLoad(tab))
 
-
 $(document).ready ->
- 
-    
-  $('#up_arrow').click( ->
+  ktlowie = []                      #Preloading kinetic elements
+  for key in [0..3]
+    ktlowie[key] = new Kinetic.Image
+      x: 100,
+      y: 100,
+      image: tlowie[key],
+      visible: false,
+      id: "tlow#{key}",
+      name: "tlow"
+      
+  $('#up_arrow').click( ->          #Making arrows scroll bar on the right 
     console.log("up")
     $('#list').animate(
       scrollTop: '+=100'
@@ -86,12 +93,14 @@ $(document).ready ->
     return
   )
   
-  window.stage = new Kinetic.Stage
+  window.stage = new Kinetic.Stage  #Making stage
     container: 'canvas',
-    width: 500,
+    width: 1000,
     height: 500,
     drawborder: true
   window.layer = new Kinetic.Layer
+  window.staticlayer = new Kinetic.Layer
+  window.stage.add(staticlayer).add(layer)
   window.context = layer.getContext()
   corner = new Kinetic.Group(
     x: 500,
@@ -110,19 +119,34 @@ $(document).ready ->
       }
     )
   window.con = window.stage.getContainer()
-  
+  dropbox = new Kinetic.Rect
+    x: 0,
+    y: 0,
+    width: 500,
+    height: 500,
+    name: "droppable",
+    draggable: false,
+    fill: 'red',
+    opacity: 0.09
+  window.layer.add(dropbox)
+    
   
   con.addEventListener('dragover', (e) ->
     e.preventDefault()
   )
-  
+  window.layer.draw()
     #***Zmiana tlowiow
-  window.tlows= []
-  window.ison = 0
-  addLeft(tlowie[3],layer,'wiatr')
-  addLeft(tlowie[2],layer,'ziemia')
-  addLeft(tlowie[0],layer,'ogien')
-  addLeft(tlowie[1],layer,'woda')
+  window.currentTlow= null
+  
+
+
+  addLeft(ktlowie[0],staticlayer,'ogien')
+  addLeft(ktlowie[1],staticlayer,'woda')
+  addLeft(ktlowie[2],staticlayer,'ziemia')
+  addLeft(ktlowie[3],staticlayer,'wiatr')
+  
+  
+ 
   
   
   polud = []
@@ -130,8 +154,8 @@ $(document).ready ->
   boro = []
   domowik = []
   swiecnik = []
-  coord[0] = left: "728px", top: "259px"
-  polud[1] = left: "681px", top: "132px"
+  coord[0] = left: "728 ", top: "259 "
+  polud[1] = left: "681", top: "132"
   polud[0] = left: "808px", top: "258px"
   boro[0] =  left: "765px", top: "162px"
   domowik[0] = left: "824px", top: "551px"
@@ -140,39 +164,42 @@ $(document).ready ->
   #***ladowanie zdjec***argumenty:Gdzie zaladowac, glowny img, draggable elements,
 
   window.onload = ->
+    
+    window.kineticimg = null 
     document.getElementById('mamuna').addEventListener('click', ->
       loadFromGet('img_here',mainImgs[0],[drags[0]],coord,window.layer,window.con)
       q = document.getElementById('desc')
       
       q.innerHTML = descriptions['mamuna']
+      window.layer.draw()
     , false)
     document.getElementById('poludnica').addEventListener('click', ->
       loadFromGet('img_here',mainImgs[3],[drags[5],drags[4]],polud,window.layer,con)
       q = document.getElementById('desc')
       
       q.innerHTML = descriptions['poludnica']
-      
+      window.layer.draw()
     , false)
     document.getElementById('borowy').addEventListener('click', ->
       loadFromGet('img_here',mainImgs[1],[drags[1]],boro,window.layer,con)
       q = document.getElementById('desc')
       
       q.innerHTML = descriptions['borowy']
-      
+      window.layer.draw()
     , false)
     document.getElementById('domowik').addEventListener('click', ->
       loadFromGet('img_here',mainImgs[2],[drags[2],drags[3]],domowik,window.layer,con)
       q = document.getElementById('desc')
       
       q.innerHTML = descriptions['domowik']
-      
+      window.layer.draw()
     , false)
     document.getElementById('swiecnik').addEventListener('click', ->
       loadFromGet('img_here',mainImgs[4],[drags[6]],swiecnik,window.layer,con)
       q = document.getElementById('desc')
       
       q.innerHTML = descriptions['swiecnik']
-      
+      window.layer.draw()
     , false)
     
     return

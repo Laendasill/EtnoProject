@@ -1,22 +1,23 @@
 
 module.exports = (bckimg,layer,id)->
   
-  
-  
-  qtek = new Kinetic.Image
-    x: 100,
-    y: 100,
-    image: bckimg,
-    visible: false
-  
-  test = qtek
-  window.tlows.push(test)
+
   document.getElementById(id).addEventListener('click', ->
-    
-    console.log("click")
-    
-    layer.add(test)
-    test.show()
-    window.stage.add(layer)
-    layer.draw()
+    if window.currentTlow == null
+      window.currentTlow = bckimg
+      console.log("click")
+      
+      layer.add(bckimg)
+      bckimg.show()
+      
+      layer.draw()
+    else 
+      window.currentTlow.remove()
+      
+      window.currentTlow = bckimg
+      layer.add(bckimg)
+      bckimg.show()
+      layer.draw()
+      console.log( window.currentTlow.id())
+      return
    , false )
