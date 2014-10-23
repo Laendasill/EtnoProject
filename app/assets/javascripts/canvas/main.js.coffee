@@ -27,8 +27,8 @@ mainImgs = $.extend(true, {},preLoad(tab3)) # copying mainImg from preLoad didin
 dragstr = '
 /assets/elem/drag/mamuna_lapy.png,
 /assets/elem/drag/borowy_glowa.png,
-/assets/elem/drag/domowik_nogi.png,
-/assets/elem/drag/domowik_glowa.png,
+/assets/elem/drag/domowik_nogi_m.png,
+/assets/elem/drag/domowik_glowa_m.png,
 /assets/elem/drag/poludnica_glowa.png,
 /assets/elem/drag/poludnica_lapy.png,
 /assets/elem/drag/swiecnik_glowa.png'
@@ -62,6 +62,7 @@ tab = str.split(',')
 minatures = $.extend(true, {},preLoad(tab))
 
 $(document).ready ->
+  
   ktlowie = []                      #Preloading kinetic elements
   for key in [0..3]
     ktlowie[key] = new Kinetic.Image
@@ -98,6 +99,7 @@ $(document).ready ->
     width: 1000,
     height: 500,
     drawborder: true
+  
   window.layer = new Kinetic.Layer
   window.staticlayer = new Kinetic.Layer
   window.stage.add(staticlayer).add(layer)
@@ -137,7 +139,9 @@ $(document).ready ->
   window.layer.draw()
     #***Zmiana tlowiow
   window.currentTlow= null
-  
+  document.getElementById('gotowe').addEventListener('click', (e) ->
+    alert document.getElementById('nazwa').value
+    )
 
 
   addLeft(ktlowie[0],staticlayer,'ogien')
@@ -154,13 +158,13 @@ $(document).ready ->
   boro = []
   domowik = []
   swiecnik = []
-  coord[0] = left: "728 ", top: "259 "
-  polud[1] = left: "681", top: "132"
-  polud[0] = left: "808px", top: "258px"
-  boro[0] =  left: "765px", top: "162px"
-  domowik[0] = left: "824px", top: "551px"
-  domowik[1] = left: "838px", top: "298px"
-  swiecnik[0] = left: "849px", top: "209px"
+  coord[0] = left: 71, top: 87
+  polud[1] = left:  24 , top:  -39 
+  polud[0] = left:  149  , top:  86  
+  boro[0] =  left:  107  , top:  -11 
+  domowik[1] = left: 194, top: 142
+  domowik[0] = left: 189, top: 373
+  swiecnik[0] = left:  193  , top:  37  
   #***ladowanie zdjec***argumenty:Gdzie zaladowac, glowny img, draggable elements,
 
   window.onload = ->
@@ -203,6 +207,7 @@ $(document).ready ->
     , false)
     
     return
+  
   return
 
 

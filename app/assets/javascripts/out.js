@@ -3,7 +3,6 @@ module.exports = function(bckimg, layer, id) {
   return document.getElementById(id).addEventListener('click', function() {
     if (window.currentTlow === null) {
       window.currentTlow = bckimg;
-      console.log("click");
       layer.add(bckimg);
       bckimg.show();
       return layer.draw();
@@ -13,7 +12,6 @@ module.exports = function(bckimg, layer, id) {
       layer.add(bckimg);
       bckimg.show();
       layer.draw();
-      console.log(window.currentTlow.id());
     }
   }, false);
 };
@@ -21,42 +19,56 @@ module.exports = function(bckimg, layer, id) {
 
 
 },{}],"/home/production/Documents/Aptana Studio 3 Workspace/test/tes/app/assets/javascripts/canvas/loadFromGet.js.coffee":[function(require,module,exports){
-var addImage, imgoffset, isNearOutline, onDragEnd, validcoords, _ref;
+var addImage, imgoffset, isNearOutline, onDragEnd, validcoords;
 
 validcoords = [];
 
-[].splice.apply(validcoords, [0, 2].concat(_ref = {
+validcoords[0] = {
   x: 0,
   y: 0
-})), _ref;
+};
+
+validcoords[1] = {
+  x: 0,
+  y: 0
+};
 
 imgoffset = 520;
 
-addImage = function(element, coords) {
+addImage = function(element, coord, i) {
   var kimg, offset;
   offset = $(window.con).offset();
   kimg = new Kinetic.Image({
-    x: 71 + imgoffset,
-    y: 87,
+    x: coord.left + imgoffset,
+    y: coord.top,
     image: element,
+    opacity: 0,
     draggable: true,
+    id: i,
     name: "dragimage"
   });
-  validcoords.x = kimg.getPosition().x;
-  validcoords.y = kimg.getPosition().y;
-  kimg.on('dragend', function(e) {
-    return onDragEnd(e);
-  });
-  return window.layer.add(kimg);
+  validcoords[i].x = kimg.getPosition().x;
+  validcoords[i].y = kimg.getPosition().y;
+  if (window.stage.find('.tlow').length === 0) {
+    return false;
+  } else {
+    kimg.on('dragstart', function(e) {
+      return this.opacity(1);
+    });
+    kimg.on('dragend', function(e) {
+      return onDragEnd(e);
+    });
+    return window.layer.add(kimg);
+  }
 };
 
 isNearOutline = function(a, b) {
-  var drag, dragx, dragy, drop, droph, dropw, dropx, dropy, _ref1, _ref2, _ref3;
+  var drag, dragx, dragy, drop, droph, dropw, dropx, dropy, _ref, _ref1, _ref2;
   drop = b;
   drag = a;
-  _ref1 = [drop.getPosition().x, drop.getPosition().y], dropx = _ref1[0], dropy = _ref1[1];
-  _ref2 = [drop.getWidth(), drop.getHeight()], dropw = _ref2[0], droph = _ref2[1];
-  _ref3 = [drag.getPosition().x, drag.getPosition().y], dragx = _ref3[0], dragy = _ref3[1];
+  _ref = [drop.getPosition().x, drop.getPosition().y], dropx = _ref[0], dropy = _ref[1];
+  _ref1 = [drop.getWidth(), drop.getHeight()], dropw = _ref1[0], droph = _ref1[1];
+  _ref2 = [drag.getPosition().x, drag.getPosition().y], dragx = _ref2[0], dragy = _ref2[1];
   if (dragx > dropx - dropw && dragx < dropx + dropw && dragy > dropy - droph && dragy < dropy + droph) {
     return true;
   } else {
@@ -65,19 +77,26 @@ isNearOutline = function(a, b) {
 };
 
 onDragEnd = function(e) {
-  var drag, droprect, tween;
-  droprect = window.stage.find('.droppable');
+  var drag, droprect, test, tween;
+  if (window.stage.find('.tlow').length === 0) {
+    droprect = window.stage.find('.tlow');
+  } else {
+    droprect = window.stage.find('.droppable');
+  }
+  console.log(window.stage.find('.tlow').length);
   drag = e.target;
-  if (isNearOutline(drag, droprect[0])) {
-    drag.x = droprect.width() / 2 - drag.width() - 100;
-    drag.y = droprect.height() / 2 - drag.height() - 100;
+  test = isNearOutline(drag, droprect[0]);
+  console.log(drag.getPosition().x - 520, ":", drag.getPosition().y);
+  if (test) {
+    validcoords[drag.id()].x = drag.getPosition().x;
+    validcoords[drag.id()].y = drag.getPosition().y;
     return drag.name('dragged');
   } else {
     tween = new Kinetic.Tween({
       node: drag,
-      duration: 0.9,
-      x: validcoords.x,
-      y: validcoords.y
+      duration: 0.5,
+      x: validcoords[drag.id()].x,
+      y: validcoords[drag.id()].y
     });
     return tween.play();
   }
@@ -88,29 +107,32 @@ module.exports = function(where, mainImg, dropElemts, coords, layer, container, 
   shpes = null;
   c = document.getElementById('img_here');
   c.innerHTML = '';
-  console.log(dropElemts.length);
   dragSrc = null;
   clean = window.stage.find(".dragimage");
   for (_i = 0, _len = clean.length; _i < _len; _i++) {
     key = clean[_i];
     key.remove();
   }
-  if (window.kineticimg === null) {
-    window.kineticimg = new Kinetic.Image({
-      draggable: false,
-      x: 520,
-      y: 0,
-      image: mainImg
-    });
-    window.layer.add(kineticimg);
-    console.log(window.kineticimg);
+  if (window.stage.find('.tlow').length === 0) {
+    alert("dodaj tlow!");
   } else {
+    if (window.kineticimg === null) {
+      window.kineticimg = new Kinetic.Image({
+        draggable: false,
+        x: 520,
+        y: 0,
+        image: mainImg
+      });
+      window.layer.add(kineticimg);
+    } else {
+
+    }
     window.kineticimg.setImage(mainImg);
   }
   ims = [];
   n = dropElemts.length;
   for (q = _j = 0; 0 <= n ? _j < n : _j > n; q = 0 <= n ? ++_j : --_j) {
-    addImage(dropElemts[q], coords[q]);
+    addImage(dropElemts[q], coords[q], q);
   }
   offset = $(container).offset();
   minX = parseInt(offset.left);
@@ -158,7 +180,7 @@ tab3 = mainstr.split(',');
 
 mainImgs = $.extend(true, {}, preLoad(tab3));
 
-dragstr = '/assets/elem/drag/mamuna_lapy.png, /assets/elem/drag/borowy_glowa.png, /assets/elem/drag/domowik_nogi.png, /assets/elem/drag/domowik_glowa.png, /assets/elem/drag/poludnica_glowa.png, /assets/elem/drag/poludnica_lapy.png, /assets/elem/drag/swiecnik_glowa.png';
+dragstr = '/assets/elem/drag/mamuna_lapy.png, /assets/elem/drag/borowy_glowa.png, /assets/elem/drag/domowik_nogi_m.png, /assets/elem/drag/domowik_glowa_m.png, /assets/elem/drag/poludnica_glowa.png, /assets/elem/drag/poludnica_lapy.png, /assets/elem/drag/swiecnik_glowa.png';
 
 tab5 = dragstr.split(',');
 
@@ -250,6 +272,9 @@ $(document).ready(function() {
   });
   window.layer.draw();
   window.currentTlow = null;
+  document.getElementById('gotowe').addEventListener('click', function(e) {
+    return alert(document.getElementById('nazwa').value);
+  });
   addLeft(ktlowie[0], staticlayer, 'ogien');
   addLeft(ktlowie[1], staticlayer, 'woda');
   addLeft(ktlowie[2], staticlayer, 'ziemia');
@@ -260,32 +285,32 @@ $(document).ready(function() {
   domowik = [];
   swiecnik = [];
   coord[0] = {
-    left: "728 ",
-    top: "259 "
+    left: 71,
+    top: 87
   };
   polud[1] = {
-    left: "681",
-    top: "132"
+    left: 24,
+    top: -39
   };
   polud[0] = {
-    left: "808px",
-    top: "258px"
+    left: 149,
+    top: 86
   };
   boro[0] = {
-    left: "765px",
-    top: "162px"
-  };
-  domowik[0] = {
-    left: "824px",
-    top: "551px"
+    left: 107,
+    top: -11
   };
   domowik[1] = {
-    left: "838px",
-    top: "298px"
+    left: 194,
+    top: 142
+  };
+  domowik[0] = {
+    left: 189,
+    top: 373
   };
   swiecnik[0] = {
-    left: "849px",
-    top: "209px"
+    left: 193,
+    top: 37
   };
   window.onload = function() {
     window.kineticimg = null;

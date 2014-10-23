@@ -5,7 +5,7 @@ module.exports = (bckimg,layer,id)->
   document.getElementById(id).addEventListener('click', ->
     if window.currentTlow == null
       window.currentTlow = bckimg
-      console.log("click")
+      
       
       layer.add(bckimg)
       bckimg.show()
@@ -18,6 +18,6 @@ module.exports = (bckimg,layer,id)->
       layer.add(bckimg)
       bckimg.show()
       layer.draw()
-      console.log( window.currentTlow.id())
+      
       return
    , false )

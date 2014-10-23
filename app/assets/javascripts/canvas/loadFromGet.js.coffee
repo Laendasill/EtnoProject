@@ -1,22 +1,41 @@
 validcoords = []
 
-validcoords[0..1] = { x:0, y:0 }
+validcoords[0] = { x:0, y:0 }
+validcoords[1] = { x:0, y:0 }
 imgoffset = 520
-addImage = (element,coords)->
-  offset = $(window.con).offset()
-  kimg = new Kinetic.Image
-    x: 71+imgoffset,
-    y: 87,
-    image: element,
-    draggable: true,
-    name: "dragimage"
-  validcoords.x = kimg.getPosition().x
-  validcoords.y = kimg.getPosition().y
+addImage = (element,coord,i)->
   
-  kimg.on('dragend', (e) ->
-    onDragEnd(e)
-    )    
-  window.layer.add(kimg)
+  offset = $(window.con).offset()
+  
+  
+  kimg = new Kinetic.Image
+    x: coord.left+imgoffset,
+    y: coord.top,
+    image: element,
+    opacity: 0,
+    draggable: true,
+    id: i,
+    name: "dragimage"
+    
+  validcoords[i].x = kimg.getPosition().x
+  validcoords[i].y = kimg.getPosition().y
+  if window.stage.find('.tlow').length == 0
+    return false
+  else
+    kimg.on('dragstart', (e) ->
+  
+      this.opacity(1)
+      
+      )
+    kimg.on('dragend', (e) ->
+     
+      onDragEnd(e)
+      
+      )    
+    
+    window.layer.add(kimg)
+  
+  
 isNearOutline = (a,b) ->
   drop = b
   drag = a
@@ -27,23 +46,34 @@ isNearOutline = (a,b) ->
   if dragx > dropx - dropw && dragx < dropx + dropw && dragy > dropy - droph && dragy < dropy + droph
     return true
   else
-    return false        
+    return false    
+    
+        
 onDragEnd = (e) ->
-  droprect = window.stage.find('.droppable')
-  
+  if window.stage.find('.tlow').length == 0
+    droprect = window.stage.find('.tlow')
+  else
+    droprect = window.stage.find('.droppable')
+  console.log(window.stage.find('.tlow').length)
   drag = e.target
- 
-  if isNearOutline(drag,droprect[0])
-    drag.x= droprect.width()/2 - drag.width() - 100
-    drag.y= droprect.height()/2 - drag.height() - 100
+  test = isNearOutline(drag,droprect[0])
+  console.log(drag.getPosition().x-520,":",drag.getPosition().y)
+  if test
+    validcoords[drag.id()].x = drag.getPosition().x
+    validcoords[drag.id()].y = drag.getPosition().y
+
     drag.name('dragged')
+    
   else
     tween = new Kinetic.Tween
       node: drag,
-      duration: 0.9,
-      x: validcoords.x,
-      y: validcoords.y
+      duration: 0.5,
+      x: validcoords[drag.id()].x,
+      y: validcoords[drag.id()].y,
+      
     tween.play()
+    
+    
 
 module.exports = (where,mainImg,dropElemts,coords,layer,container,group)->
   
@@ -55,21 +85,24 @@ module.exports = (where,mainImg,dropElemts,coords,layer,container,group)->
  # img = document.getElementById('rpimg')
   #img.src = mainImg.src
   
-  console.log(dropElemts.length)
+  
   #img.ondragstart = -> return false
   dragSrc = null
   clean = window.stage.find(".dragimage")
   for key in clean
     key.remove()
-  if window.kineticimg == null
-    window.kineticimg = new Kinetic.Image
-      draggable: false,
-      x: 520,
-      y: 0,    
-      image: mainImg,
-    window.layer.add(kineticimg)   
-    console.log(window.kineticimg)
+  if window.stage.find('.tlow').length == 0
+    alert "dodaj tlow!"
   else
+    if window.kineticimg == null 
+      window.kineticimg = new Kinetic.Image
+        draggable: false,
+        x: 520,
+        y: 0,    
+        image: mainImg,
+      window.layer.add(kineticimg)   
+      
+    else
     window.kineticimg.setImage(mainImg)    
      
   ims = []
@@ -81,9 +114,9 @@ module.exports = (where,mainImg,dropElemts,coords,layer,container,group)->
   
   
   for q in [0...n]
-    addImage(dropElemts[q],coords[q])
+    addImage(dropElemts[q],coords[q],q)
     
-   # console.log(i + 'n=' +  n)
+    
    # q.style.left = coords[i].left
    # q.style.top = coords[i].top
    # q.setAttribute('class','drag1')
