@@ -12,7 +12,24 @@ descriptions = { 'mamuna': 'Mamuna – brzydkie straszydło. Okropna, tłusta, w
 'Planetnik': 'Planetnik to potężny mąż. Unosi się w powietrze i może przenosić na wielkich barkach (lub przeciągać na linie) ciężkie, gradowe chmury, tak aby je odciągnąć od pól. Może też złośliwie sprowadzić opady na uprawy – wszystko zależy od jego humoru i charakteru. Odgania go dźwięk kościelnego dzwonu. Zdarza się tak, że ten czy inny Płanetnik związuje się na zawsze z jedną wsią i pracuje na jej korzyść.',
 'strzyga': 'Strzyga – straszliwa mara. Zjawia się nocą, siada na piersi i męczy śpiącego człowieka. Można ją napotkać tylko w nocy, często wędruje pod postacią sowy. Kiedy zmieni się w swoją prawdziwą postać, da się ją poznać od razu – ciało ma dziwne, pokurczone i ciężkie, ale skrzydła i szpony sowie. Bardzo uparty i niemiły cudak.'
 }
-
+﻿functions = {
+'mamuna': 'Dzięki potężnym ramionom Mamuny, #{name} ma siłę, straszny wygląd i może robić na złość rodzicom i podmieniać ich dzieci na niegrzeczne.',
+'poludnica_hands': 'Dzięki silnym i długim ramionom Południcy, #{name} może chwytać ciężary w locie.',
+'poludnica_head': ' Dzięki wielkiej szopie włosów Południcy, #{name} może unosić się w powietrzu w czasie letniego skwaru. ',
+'swiecnik_head':'Dzięki płonącej główce Świecnika, #{name} może wskazywać drogę zagubionym.',
+'topielec_hands ':'Dzięki sprawnym dłoniom i rękom Topielicy, #{name} może pleść sidła i świetnie poruszać się pod wodą.',
+'borowy_head ':'Dzięki mądrości Borowego, #{name} świetnie radzi sobie w głuszy i rozpoznaje prawdziwa naturę napotkanych ludzi. ',
+'borowy_legs':'Dzięki silnym i długim nogom Borowego, #{name} może szybko biegać.',
+'domowik_head':'Dzięki mądrej główce Domowika, #{name} wie jak strzec swojego domu i umie znaleźć najlepsze kryjówki.',
+'domowik_legs':'Dzięki szybkim nóżkom i małemu wzrostowi Domowika, #{name} potrafi szybko ukryć się przed natrętami.  ',
+'klobuk_legs':'Kurze nóżki Kłobuka, pozwalają #{name} na przenoszenie ogromnych ciężarów w locie.',
+'klobuk_eyes ':'Dobry wzrok Kłobuka, pozwala #{name} wypatrzeć ukryte skarby.',
+'klobuk_wings':'Dzięki żarzącym się skrzydłom Kłobuka, #{name} może latać w nocy nie obawiając się przeszkód. ',
+'planetnik_hands ':'Dzięki potężnym ramionom Płanetnika, #{name} może przenosić chmury burzowe tam, gdzie zechce. ',
+'strzyga_wings':'Dzięki wielkim skrzydłom Strzygi, #{name}. może latać, ale tylko w nocy ',
+'strzyga_hands':'Dzięki ostrym szponom Strzygi, #{name} czepia się swojego celu i mocno go trzyma. ',
+'cmuch_legs':'Dzięki żabim nogom Ćmucha, #{name} jest niesamowicie szybki i zwinny w wodzie.'
+}
 mainstr ='
 /assets/elem/mamuna.png,
 /assets/elem/borowy.png,
