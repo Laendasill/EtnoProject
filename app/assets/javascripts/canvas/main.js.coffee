@@ -1,6 +1,7 @@
 loadFromGet = require('./loadFromGet.js.coffee')
 preLoad = require('./preLoadAll.js.coffee')
 addLeft = require('./addleft.js.coffee')
+
 descriptions = { 'mamuna': 'Mamuna – brzydkie straszydło. Okropna, tłusta, wielka i owłosiona. Mieszka w pobliżu lasów, zagajników i rzek. Jest złośliwa, dzieci często się jej boją. Czyha na nie i podmienia je na niegrzeczne, uprzykrzając życie rodzicom.',
 'poludnica': 'Południca – okropny stwór. Pojawia się w falującym zbożu w czasie najgorętszych godzin dnia. Ma silne ręce, którymi łapie pracujących wtedy ludzi i sprawia, że mdleją i chorują. Można się jej ustrzec uciekając od południowego skwaru z najbardziej nasłonecznionych miejsc, gdzie najczęściej można ją spotkać.',
 'swiecnik': 'Świecnik to dziwna zjawa. Pojawia się najczęściej na bagnach, w lasach lub wśród pól. Przybiera postać małego lub większego ognika. Zabłąkanym wskazuje drogę do domu, ale jeśli nie będzie się go traktować z należytym szacunkiem i uwagą, może całkiem poplątać ścieżki, a nawet wprowadzić na niebezpieczne mokradła.',
@@ -12,24 +13,6 @@ descriptions = { 'mamuna': 'Mamuna – brzydkie straszydło. Okropna, tłusta, w
 'Planetnik': 'Planetnik to potężny mąż. Unosi się w powietrze i może przenosić na wielkich barkach (lub przeciągać na linie) ciężkie, gradowe chmury, tak aby je odciągnąć od pól. Może też złośliwie sprowadzić opady na uprawy – wszystko zależy od jego humoru i charakteru. Odgania go dźwięk kościelnego dzwonu. Zdarza się tak, że ten czy inny Płanetnik związuje się na zawsze z jedną wsią i pracuje na jej korzyść.',
 'strzyga': 'Strzyga – straszliwa mara. Zjawia się nocą, siada na piersi i męczy śpiącego człowieka. Można ją napotkać tylko w nocy, często wędruje pod postacią sowy. Kiedy zmieni się w swoją prawdziwą postać, da się ją poznać od razu – ciało ma dziwne, pokurczone i ciężkie, ale skrzydła i szpony sowie. Bardzo uparty i niemiły cudak.'
 }
-﻿functions = {
-'mamuna': 'Dzięki potężnym ramionom Mamuny, #{name} ma siłę, straszny wygląd i może robić na złość rodzicom i podmieniać ich dzieci na niegrzeczne.',
-'poludnica_hands': 'Dzięki silnym i długim ramionom Południcy, #{name} może chwytać ciężary w locie.',
-'poludnica_head': ' Dzięki wielkiej szopie włosów Południcy, #{name} może unosić się w powietrzu w czasie letniego skwaru. ',
-'swiecnik_head':'Dzięki płonącej główce Świecnika, #{name} może wskazywać drogę zagubionym.',
-'topielec_hands ':'Dzięki sprawnym dłoniom i rękom Topielicy, #{name} może pleść sidła i świetnie poruszać się pod wodą.',
-'borowy_head ':'Dzięki mądrości Borowego, #{name} świetnie radzi sobie w głuszy i rozpoznaje prawdziwa naturę napotkanych ludzi. ',
-'borowy_legs':'Dzięki silnym i długim nogom Borowego, #{name} może szybko biegać.',
-'domowik_head':'Dzięki mądrej główce Domowika, #{name} wie jak strzec swojego domu i umie znaleźć najlepsze kryjówki.',
-'domowik_legs':'Dzięki szybkim nóżkom i małemu wzrostowi Domowika, #{name} potrafi szybko ukryć się przed natrętami.  ',
-'klobuk_legs':'Kurze nóżki Kłobuka, pozwalają #{name} na przenoszenie ogromnych ciężarów w locie.',
-'klobuk_eyes ':'Dobry wzrok Kłobuka, pozwala #{name} wypatrzeć ukryte skarby.',
-'klobuk_wings':'Dzięki żarzącym się skrzydłom Kłobuka, #{name} może latać w nocy nie obawiając się przeszkód. ',
-'planetnik_hands ':'Dzięki potężnym ramionom Płanetnika, #{name} może przenosić chmury burzowe tam, gdzie zechce. ',
-'strzyga_wings':'Dzięki wielkim skrzydłom Strzygi, #{name}. może latać, ale tylko w nocy ',
-'strzyga_hands':'Dzięki ostrym szponom Strzygi, #{name} czepia się swojego celu i mocno go trzyma. ',
-'cmuch_legs':'Dzięki żabim nogom Ćmucha, #{name} jest niesamowicie szybki i zwinny w wodzie.'
-}
 mainstr ='
 /assets/elem/mamuna.png,
 /assets/elem/borowy.png,
@@ -40,7 +23,16 @@ mainstr ='
 tab3 = mainstr.split(',')
 
 mainImgs = $.extend(true, {},preLoad(tab3)) # copying mainImg from preLoad didin't work well (shallow copy)
-                                            # using jquery extend() to make hard copy
+translate = {
+  'borowy_glowa.png':'borowy_head',
+  'mamuna_lapy.png': 'mamuna_hands',
+  'domowik_nogi_m.png':'domowik_legs',
+  'domowik_glowa_m.png':'domowik_head',
+  'poludnica_glowa.png':'poludnica_head',
+  'poludnica_lapy.png':'poludnica_hands',
+  'swiecnik_glowa.png':'swiecnik_head'
+  }    
+                                     # using jquery extend() to make hard copy
 dragstr = '
 /assets/elem/drag/mamuna_lapy.png,
 /assets/elem/drag/borowy_glowa.png,
@@ -79,7 +71,7 @@ tab = str.split(',')
 minatures = $.extend(true, {},preLoad(tab))
 
 $(document).ready ->
-
+  
   ktlowie = []                      #Preloading kinetic elements
   for key in [0..3]
     ktlowie[key] = new Kinetic.Image
@@ -147,13 +139,26 @@ $(document).ready ->
   window.layer.draw()
     #***Zmiana tlowiow
   window.currentTlow= null
+  name = 's'
+  $('#nazwa').on('input', ->
+    name = this.value
+    
+    )
   document.getElementById('gotowe').addEventListener('click', (e) ->
     datafront = window.context.getImageData(0,0,500,500)
     databack = window.staticlayer.getContext('2d').getImageData(0,0,500,500)
+    
+    console.log(name)
     tab = window.layer.find('.dragged')
     q=tab[0].image().src
-
-    console.log(q.substr(q.lastIndexOf('/') + 1))
+    finElements = []
+    
+    for key in tab
+      
+      tmp=key.image().src
+      finElements.push(functions[translate[tmp.substr(tmp.lastIndexOf('/') + 1)]])
+   
+    alert(functions['poludnica_hands'])
     window.stage.toDataURL(
       callback: (dataUrl) ->
         #console.log(dataUrl)
@@ -211,7 +216,24 @@ $(document).ready ->
   domowik[0] = left: 189, top: 373
   swiecnik[0] = left:  193  , top:  37
   #***ladowanie zdjec***argumenty:Gdzie zaladowac, glowny img, draggable elements,
-
+  functions = {
+  'mamuna_hands': 'Dzięki potężnym ramionom Mamuny, #{name} ma siłę, straszny wygląd i może robić na złość rodzicom i podmieniać ich dzieci na niegrzeczne.',
+  'poludnica_hands': "Dzięki silnym i długim ramionom Południcy, #{name} może chwytać ciężary w locie.",
+  'poludnica_head': ' Dzięki wielkiej szopie włosów Południcy, #{name} może unosić się w powietrzu w czasie letniego skwaru. ',
+  'swiecnik_head':'Dzięki płonącej główce Świecnika, #{name} może wskazywać drogę zagubionym.',
+  'topielec_hands ':'Dzięki sprawnym dłoniom i rękom Topielicy, #{name} może pleść sidła i świetnie poruszać się pod wodą.',
+  'borowy_head ':'Dzięki mądrości Borowego, #{name} świetnie radzi sobie w głuszy i rozpoznaje prawdziwa naturę napotkanych ludzi. ',
+  'borowy_legs':'Dzięki silnym i długim nogom Borowego, #{name} może szybko biegać.',
+  'domowik_head':'Dzięki mądrej główce Domowika, #{name} wie jak strzec swojego domu i umie znaleźć najlepsze kryjówki.',
+  'domowik_legs':'Dzięki szybkim nóżkom i małemu wzrostowi Domowika, #{name} potrafi szybko ukryć się przed natrętami.  ',
+  'klobuk_legs':'Kurze nóżki Kłobuka, pozwalają #{name} na przenoszenie ogromnych ciężarów w locie.',
+  'klobuk_eyes ':'Dobry wzrok Kłobuka, pozwala #{name} wypatrzeć ukryte skarby.',
+  'klobuk_wings':'Dzięki żarzącym się skrzydłom Kłobuka, #{name} może latać w nocy nie obawiając się przeszkód. ',
+  'planetnik_hands ':'Dzięki potężnym ramionom Płanetnika, #{name} może przenosić chmury burzowe tam, gdzie zechce. ',
+  'strzyga_wings':'Dzięki wielkim skrzydłom Strzygi, #{name}. może latać, ale tylko w nocy ',
+  'strzyga_hands':'Dzięki ostrym szponom Strzygi, #{name} czepia się swojego celu i mocno go trzyma. ',
+  'cmuch_legs':'Dzięki żabim nogom Ćmucha, #{name} jest niesamowicie szybki i zwinny w wodzie.'
+  }
   window.onload = ->
 
     window.kineticimg = null

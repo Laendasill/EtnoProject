@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/home/laendasill/rubystuff/EtnoProject/app/assets/javascripts/canvas/addleft.js.coffee":[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/home/production/Documents/Aptana Studio 3 Workspace/test/tes/app/assets/javascripts/canvas/addleft.js.coffee":[function(require,module,exports){
 module.exports = function(bckimg, layer, id) {
   return document.getElementById(id).addEventListener('click', function() {
     if (window.currentTlow === null) {
@@ -18,7 +18,7 @@ module.exports = function(bckimg, layer, id) {
 
 
 
-},{}],"/home/laendasill/rubystuff/EtnoProject/app/assets/javascripts/canvas/loadFromGet.js.coffee":[function(require,module,exports){
+},{}],"/home/production/Documents/Aptana Studio 3 Workspace/test/tes/app/assets/javascripts/canvas/loadFromGet.js.coffee":[function(require,module,exports){
 var addImage, imgoffset, isNearOutline, onDragEnd, validcoords;
 
 validcoords = [];
@@ -151,8 +151,8 @@ module.exports = function(where, mainImg, dropElemts, coords, layer, container, 
 
 
 
-},{}],"/home/laendasill/rubystuff/EtnoProject/app/assets/javascripts/canvas/main.js.coffee":[function(require,module,exports){
-var addLeft, descriptions, drags, dragstr, loadFromGet, mainImgs, mainstr, minatures, preLoad, str, str2, tab, tab2, tab3, tab5, tlowie;
+},{}],"/home/production/Documents/Aptana Studio 3 Workspace/test/tes/app/assets/javascripts/canvas/main.js.coffee":[function(require,module,exports){
+var addLeft, descriptions, drags, dragstr, loadFromGet, mainImgs, mainstr, minatures, preLoad, str, str2, tab, tab2, tab3, tab5, tlowie, translate;
 
 loadFromGet = require('./loadFromGet.js.coffee');
 
@@ -179,6 +179,16 @@ tab3 = mainstr.split(',');
 
 mainImgs = $.extend(true, {}, preLoad(tab3));
 
+translate = {
+  'borowy_glowa.png': 'borowy_head',
+  'mamuna_lapy.png': 'mamuna_hands',
+  'domowik_nogi_m.png': 'domowik_legs',
+  'domowik_glowa_m.png': 'domowik_head',
+  'poludnica_glowa.png': 'poludnica_head',
+  'poludnica_lapy.png': 'poludnica_hands',
+  'swiecnik_glowa.png': 'swiecnik_head'
+};
+
 dragstr = '/assets/elem/drag/mamuna_lapy.png, /assets/elem/drag/borowy_glowa.png, /assets/elem/drag/domowik_nogi_m.png, /assets/elem/drag/domowik_glowa_m.png, /assets/elem/drag/poludnica_glowa.png, /assets/elem/drag/poludnica_lapy.png, /assets/elem/drag/swiecnik_glowa.png';
 
 tab5 = dragstr.split(',');
@@ -202,7 +212,7 @@ tab = str.split(',');
 minatures = $.extend(true, {}, preLoad(tab));
 
 $(document).ready(function() {
-  var boro, coord, corner, domowik, key, ktlowie, polud, swiecnik, _i;
+  var boro, coord, corner, domowik, functions, key, ktlowie, name, polud, swiecnik, _i;
   ktlowie = [];
   for (key = _i = 0; _i <= 3; key = ++_i) {
     ktlowie[key] = new Kinetic.Image({
@@ -260,13 +270,24 @@ $(document).ready(function() {
   });
   window.layer.draw();
   window.currentTlow = null;
+  name = 's';
+  $('#nazwa').on('input', function() {
+    return name = this.value;
+  });
   document.getElementById('gotowe').addEventListener('click', function(e) {
-    var databack, datafront, q, smallcanvas, url;
+    var databack, datafront, finElements, q, smallcanvas, tmp, url, _j, _len;
     datafront = window.context.getImageData(0, 0, 500, 500);
     databack = window.staticlayer.getContext('2d').getImageData(0, 0, 500, 500);
+    console.log(name);
     tab = window.layer.find('.dragged');
     q = tab[0].image().src;
-    console.log(q.substr(q.lastIndexOf('/') + 1));
+    finElements = [];
+    for (_j = 0, _len = tab.length; _j < _len; _j++) {
+      key = tab[_j];
+      tmp = key.image().src;
+      finElements.push(functions[translate[tmp.substr(tmp.lastIndexOf('/') + 1)]]);
+    }
+    alert(functions['poludnica_hands']);
     window.stage.toDataURL({
       callback: function(dataUrl) {
         var image, qw, smallcanvas;
@@ -325,6 +346,24 @@ $(document).ready(function() {
   swiecnik[0] = {
     left: 193,
     top: 37
+  };
+  functions = {
+    'mamuna_hands': 'Dzięki potężnym ramionom Mamuny, #{name} ma siłę, straszny wygląd i może robić na złość rodzicom i podmieniać ich dzieci na niegrzeczne.',
+    'poludnica_hands': "Dzięki silnym i długim ramionom Południcy, " + name + " może chwytać ciężary w locie.",
+    'poludnica_head': ' Dzięki wielkiej szopie włosów Południcy, #{name} może unosić się w powietrzu w czasie letniego skwaru. ',
+    'swiecnik_head': 'Dzięki płonącej główce Świecnika, #{name} może wskazywać drogę zagubionym.',
+    'topielec_hands ': 'Dzięki sprawnym dłoniom i rękom Topielicy, #{name} może pleść sidła i świetnie poruszać się pod wodą.',
+    'borowy_head ': 'Dzięki mądrości Borowego, #{name} świetnie radzi sobie w głuszy i rozpoznaje prawdziwa naturę napotkanych ludzi. ',
+    'borowy_legs': 'Dzięki silnym i długim nogom Borowego, #{name} może szybko biegać.',
+    'domowik_head': 'Dzięki mądrej główce Domowika, #{name} wie jak strzec swojego domu i umie znaleźć najlepsze kryjówki.',
+    'domowik_legs': 'Dzięki szybkim nóżkom i małemu wzrostowi Domowika, #{name} potrafi szybko ukryć się przed natrętami.  ',
+    'klobuk_legs': 'Kurze nóżki Kłobuka, pozwalają #{name} na przenoszenie ogromnych ciężarów w locie.',
+    'klobuk_eyes ': 'Dobry wzrok Kłobuka, pozwala #{name} wypatrzeć ukryte skarby.',
+    'klobuk_wings': 'Dzięki żarzącym się skrzydłom Kłobuka, #{name} może latać w nocy nie obawiając się przeszkód. ',
+    'planetnik_hands ': 'Dzięki potężnym ramionom Płanetnika, #{name} może przenosić chmury burzowe tam, gdzie zechce. ',
+    'strzyga_wings': 'Dzięki wielkim skrzydłom Strzygi, #{name}. może latać, ale tylko w nocy ',
+    'strzyga_hands': 'Dzięki ostrym szponom Strzygi, #{name} czepia się swojego celu i mocno go trzyma. ',
+    'cmuch_legs': 'Dzięki żabim nogom Ćmucha, #{name} jest niesamowicie szybki i zwinny w wodzie.'
   };
   window.onload = function() {
     window.kineticimg = null;
@@ -470,7 +509,7 @@ $(document).ready(function() {
 
 
 
-},{"./addleft.js.coffee":"/home/laendasill/rubystuff/EtnoProject/app/assets/javascripts/canvas/addleft.js.coffee","./loadFromGet.js.coffee":"/home/laendasill/rubystuff/EtnoProject/app/assets/javascripts/canvas/loadFromGet.js.coffee","./preLoadAll.js.coffee":"/home/laendasill/rubystuff/EtnoProject/app/assets/javascripts/canvas/preLoadAll.js.coffee"}],"/home/laendasill/rubystuff/EtnoProject/app/assets/javascripts/canvas/preLoadAll.js.coffee":[function(require,module,exports){
+},{"./addleft.js.coffee":"/home/production/Documents/Aptana Studio 3 Workspace/test/tes/app/assets/javascripts/canvas/addleft.js.coffee","./loadFromGet.js.coffee":"/home/production/Documents/Aptana Studio 3 Workspace/test/tes/app/assets/javascripts/canvas/loadFromGet.js.coffee","./preLoadAll.js.coffee":"/home/production/Documents/Aptana Studio 3 Workspace/test/tes/app/assets/javascripts/canvas/preLoadAll.js.coffee"}],"/home/production/Documents/Aptana Studio 3 Workspace/test/tes/app/assets/javascripts/canvas/preLoadAll.js.coffee":[function(require,module,exports){
 var mainImg;
 
 mainImg = [];
@@ -489,4 +528,4 @@ module.exports = function(main) {
 
 
 
-},{}]},{},["/home/laendasill/rubystuff/EtnoProject/app/assets/javascripts/canvas/main.js.coffee"]);
+},{}]},{},["/home/production/Documents/Aptana Studio 3 Workspace/test/tes/app/assets/javascripts/canvas/main.js.coffee"]);
