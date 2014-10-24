@@ -1,69 +1,143 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/home/laendasill/rubystuff/EtnoProject/app/assets/javascripts/canvas/addleft.js.coffee":[function(require,module,exports){
 module.exports = function(bckimg, layer, id) {
-  var qtek, test;
-  qtek = new Kinetic.Image({
-    x: 100,
-    y: 100,
-    image: bckimg,
-    visible: false
-  });
-  test = qtek;
-  window.tlows.push(test);
   return document.getElementById(id).addEventListener('click', function() {
-    console.log("click");
-    layer.add(test);
-    test.show();
-    window.stage.add(layer);
-    return layer.draw();
+    if (window.currentTlow === null) {
+      window.currentTlow = bckimg;
+      layer.add(bckimg);
+      bckimg.show();
+      return layer.draw();
+    } else {
+      window.currentTlow.remove();
+      window.currentTlow = bckimg;
+      layer.add(bckimg);
+      bckimg.show();
+      layer.draw();
+    }
   }, false);
 };
 
 
 
 },{}],"/home/laendasill/rubystuff/EtnoProject/app/assets/javascripts/canvas/loadFromGet.js.coffee":[function(require,module,exports){
-module.exports = function(where, mainImg, dropElemts, coords, layer, container, group) {
-  var dragSrc, i, img, ims, minX, minY, n, offset, q, shpes, tmp, _i, _len;
-  shpes = null;
-  $('.drag1').remove();
-  tmp = document.getElementById(where);
-  img = document.getElementById('rpimg');
-  img.src = mainImg.src;
-  console.log(dropElemts.length);
-  img.ondragstart = function() {
+var addImage, imgoffset, isNearOutline, onDragEnd, validcoords;
+
+validcoords = [];
+
+validcoords[0] = {
+  x: 0,
+  y: 0
+};
+
+validcoords[1] = {
+  x: 0,
+  y: 0
+};
+
+imgoffset = 520;
+
+addImage = function(element, coord, i) {
+  var kimg;
+  kimg = new Kinetic.Image({
+    x: coord.left + imgoffset,
+    y: coord.top,
+    image: element,
+    opacity: 0,
+    draggable: true,
+    id: i,
+    name: "dragimage"
+  });
+  validcoords[i].x = kimg.getPosition().x;
+  validcoords[i].y = kimg.getPosition().y;
+  if (window.stage.find('.tlow').length === 0) {
     return false;
-  };
+  } else {
+    kimg.on('dragstart', function(e) {
+      return this.opacity(1);
+    });
+    kimg.on('dragend', function(e) {
+      return onDragEnd(e);
+    });
+    return window.layer.add(kimg);
+  }
+};
+
+isNearOutline = function(a, b) {
+  var drag, dragx, dragy, drop, droph, dropw, dropx, dropy, _ref, _ref1, _ref2;
+  drop = b;
+  drag = a;
+  _ref = [drop.getPosition().x, drop.getPosition().y], dropx = _ref[0], dropy = _ref[1];
+  _ref1 = [drop.getWidth(), drop.getHeight()], dropw = _ref1[0], droph = _ref1[1];
+  _ref2 = [drag.getPosition().x, drag.getPosition().y], dragx = _ref2[0], dragy = _ref2[1];
+  if (dragx > dropx - dropw && dragx < dropx + dropw && dragy > dropy - droph && dragy < dropy + droph) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+onDragEnd = function(e) {
+  var drag, droprect, test, tween;
+  if (window.stage.find('.tlow').length === 0) {
+    alert("wat?");
+  } else {
+    droprect = window.stage.find('.tlow');
+  }
+  console.log(window.stage.find('.tlow').length);
+  drag = e.target;
+  test = isNearOutline(drag, droprect[0]);
+  console.log(drag.getPosition().x - 520, ":", drag.getPosition().y);
+  if (test) {
+    validcoords[drag.id()].x = drag.getPosition().x;
+    validcoords[drag.id()].y = drag.getPosition().y;
+    return drag.name('dragged');
+  } else {
+    tween = new Kinetic.Tween({
+      node: drag,
+      duration: 0.5,
+      x: validcoords[drag.id()].x,
+      y: validcoords[drag.id()].y
+    });
+    return tween.play();
+  }
+};
+
+module.exports = function(where, mainImg, dropElemts, coords, layer, container, group) {
+  var c, clean, dragSrc, ims, key, minX, minY, n, offset, q, shpes, _i, _j, _len;
+  shpes = null;
+  c = document.getElementById('img_here');
+  c.innerHTML = '';
   dragSrc = null;
+  clean = window.stage.find(".dragimage");
+  for (_i = 0, _len = clean.length; _i < _len; _i++) {
+    key = clean[_i];
+    key.remove();
+  }
+  if (window.stage.find('.tlow').length === 0) {
+    alert("dodaj tlow!");
+  } else {
+    if (window.kineticimg === null) {
+      window.kineticimg = new Kinetic.Image({
+        draggable: false,
+        x: 520,
+        y: 0,
+        image: mainImg
+      });
+      window.layer.add(kineticimg);
+    } else {
+
+    }
+    window.kineticimg.setImage(mainImg);
+  }
   ims = [];
-  i = 0;
   n = dropElemts.length;
-  for (_i = 0, _len = dropElemts.length; _i < _len; _i++) {
-    q = dropElemts[_i];
-    console.log(i + 'n=' + n);
-    q.style.left = coords[i].left;
-    q.style.top = coords[i].top;
-    q.setAttribute('class', 'drag1');
-    q.style.position = 'absolute';
-    q.setAttribute('draggable', 'true');
-    q.style.opacity = 0;
-    tmp.appendChild(q);
-    ims.push(q);
-    i++;
-    q.addEventListener('dragstart', function(e) {
-      e.dataTransfer.setData('src', this.src);
-      e.dataTransfer.setData('width', this.width);
-      e.dataTransfer.setData('height', this.height);
-      e.dataTransfer.setDragImage(this, this.width / 2, this.height / 2);
-      return dragSrc = this;
-    }, false);
-    q.addEventListener('dragend', function(e) {
-      return e.target.style.border = "none";
-    }, false);
+  for (q = _j = 0; 0 <= n ? _j < n : _j > n; q = 0 <= n ? ++_j : --_j) {
+    addImage(dropElemts[q], coords[q], q);
   }
   offset = $(container).offset();
   minX = parseInt(offset.left);
   minY = parseInt(offset.top);
   container.addEventListener('drop', function(e) {
-    var image, imageObj, r, src, x, y;
+    var r, src, x, y;
     x = e.pageX;
     y = e.pageY;
     e.preventDefault();
@@ -71,19 +145,7 @@ module.exports = function(where, mainImg, dropElemts, coords, layer, container, 
     console.log("jarejarejare");
     src = e.dataTransfer.getData('src');
     console.log(src[1]);
-    e.target.style.border = "";
-    image = new Kinetic.Image({
-      draggable: true,
-      x: x - minX - e.dataTransfer.getData('width') / 2,
-      y: y - minY - e.dataTransfer.getData('height') / 2
-    });
-    layer.add(image);
-    imageObj = new Image();
-    imageObj.src = src;
-    return imageObj.onload = function() {
-      image.setImage(imageObj);
-      return layer.draw();
-    };
+    return e.target.style.border = "";
   });
 };
 
@@ -117,7 +179,7 @@ tab3 = mainstr.split(',');
 
 mainImgs = $.extend(true, {}, preLoad(tab3));
 
-dragstr = '/assets/elem/drag/mamuna_lapy.png, /assets/elem/drag/borowy_glowa.png, /assets/elem/drag/domowik_nogi.png, /assets/elem/drag/domowik_glowa.png, /assets/elem/drag/poludnica_glowa.png, /assets/elem/drag/poludnica_lapy.png, /assets/elem/drag/swiecnik_glowa.png';
+dragstr = '/assets/elem/drag/mamuna_lapy.png, /assets/elem/drag/borowy_glowa.png, /assets/elem/drag/domowik_nogi_m.png, /assets/elem/drag/domowik_glowa_m.png, /assets/elem/drag/poludnica_glowa.png, /assets/elem/drag/poludnica_lapy.png, /assets/elem/drag/swiecnik_glowa.png';
 
 tab5 = dragstr.split(',');
 
@@ -140,7 +202,18 @@ tab = str.split(',');
 minatures = $.extend(true, {}, preLoad(tab));
 
 $(document).ready(function() {
-  var boro, coord, corner, domowik, polud, swiecnik;
+  var boro, coord, corner, domowik, key, ktlowie, polud, swiecnik, _i;
+  ktlowie = [];
+  for (key = _i = 0; _i <= 3; key = ++_i) {
+    ktlowie[key] = new Kinetic.Image({
+      x: 100,
+      y: 100,
+      image: tlowie[key],
+      visible: false,
+      id: "tlow" + key,
+      name: "tlow"
+    });
+  }
   $('#up_arrow').click(function() {
     console.log("up");
     $('#list').animate({
@@ -155,12 +228,14 @@ $(document).ready(function() {
   });
   window.stage = new Kinetic.Stage({
     container: 'canvas',
-    width: 500,
+    width: 1000,
     height: 500,
     drawborder: true
   });
   window.layer = new Kinetic.Layer;
-  window.context = layer.getContext();
+  window.staticlayer = new Kinetic.Layer;
+  window.stage.add(staticlayer).add(layer);
+  window.context = window.layer.getContext('2d');
   corner = new Kinetic.Group({
     x: 500,
     y: 500,
@@ -183,75 +258,110 @@ $(document).ready(function() {
   con.addEventListener('dragover', function(e) {
     return e.preventDefault();
   });
-  window.tlows = [];
-  window.ison = 0;
-  addLeft(tlowie[3], layer, 'wiatr');
-  addLeft(tlowie[2], layer, 'ziemia');
-  addLeft(tlowie[0], layer, 'ogien');
-  addLeft(tlowie[1], layer, 'woda');
+  window.layer.draw();
+  window.currentTlow = null;
+  document.getElementById('gotowe').addEventListener('click', function(e) {
+    var databack, datafront, q, smallcanvas, url;
+    datafront = window.context.getImageData(0, 0, 500, 500);
+    databack = window.staticlayer.getContext('2d').getImageData(0, 0, 500, 500);
+    tab = window.layer.find('.dragged');
+    q = tab[0].image().src;
+    console.log(q.substr(q.lastIndexOf('/') + 1));
+    window.stage.toDataURL({
+      callback: function(dataUrl) {
+        var image, qw, smallcanvas;
+        smallcanvas = document.createElement('canvas');
+        smallcanvas.setAttribute('id', "smcav");
+        smallcanvas.setAttribute('width', 500);
+        smallcanvas.setAttribute('height', 500);
+        image = new Image();
+        image.src = dataUrl;
+        q = smallcanvas.getContext("2d");
+        q.drawImage(image, 0, 0);
+        return qw = smallcanvas.toDataURL();
+      }
+    });
+    smallcanvas = document.createElement('canvas');
+    smallcanvas.setAttribute('id', "smcav");
+    smallcanvas.setAttribute('width', 500);
+    smallcanvas.setAttribute('height', 500);
+    q = smallcanvas.getContext("2d");
+    url = smallcanvas.toDataURL();
+    return url = smallcanvas.toDataURL();
+  });
+  addLeft(ktlowie[0], staticlayer, 'ogien');
+  addLeft(ktlowie[1], staticlayer, 'woda');
+  addLeft(ktlowie[2], staticlayer, 'ziemia');
+  addLeft(ktlowie[3], staticlayer, 'wiatr');
   polud = [];
   coord = [];
   boro = [];
   domowik = [];
   swiecnik = [];
   coord[0] = {
-    left: "728px",
-    top: "259px"
+    left: 71,
+    top: 87
   };
   polud[1] = {
-    left: "681px",
-    top: "132px"
+    left: 24,
+    top: -39
   };
   polud[0] = {
-    left: "808px",
-    top: "258px"
+    left: 149,
+    top: 86
   };
   boro[0] = {
-    left: "765px",
-    top: "162px"
-  };
-  domowik[0] = {
-    left: "824px",
-    top: "551px"
+    left: 107,
+    top: -11
   };
   domowik[1] = {
-    left: "838px",
-    top: "298px"
+    left: 194,
+    top: 142
+  };
+  domowik[0] = {
+    left: 189,
+    top: 373
   };
   swiecnik[0] = {
-    left: "849px",
-    top: "209px"
+    left: 193,
+    top: 37
   };
   window.onload = function() {
+    window.kineticimg = null;
     document.getElementById('mamuna').addEventListener('click', function() {
       var q;
       loadFromGet('img_here', mainImgs[0], [drags[0]], coord, window.layer, window.con);
       q = document.getElementById('desc');
-      return q.innerHTML = descriptions['mamuna'];
+      q.innerHTML = descriptions['mamuna'];
+      return window.layer.draw();
     }, false);
     document.getElementById('poludnica').addEventListener('click', function() {
       var q;
       loadFromGet('img_here', mainImgs[3], [drags[5], drags[4]], polud, window.layer, con);
       q = document.getElementById('desc');
-      return q.innerHTML = descriptions['poludnica'];
+      q.innerHTML = descriptions['poludnica'];
+      return window.layer.draw();
     }, false);
     document.getElementById('borowy').addEventListener('click', function() {
       var q;
       loadFromGet('img_here', mainImgs[1], [drags[1]], boro, window.layer, con);
       q = document.getElementById('desc');
-      return q.innerHTML = descriptions['borowy'];
+      q.innerHTML = descriptions['borowy'];
+      return window.layer.draw();
     }, false);
     document.getElementById('domowik').addEventListener('click', function() {
       var q;
       loadFromGet('img_here', mainImgs[2], [drags[2], drags[3]], domowik, window.layer, con);
       q = document.getElementById('desc');
-      return q.innerHTML = descriptions['domowik'];
+      q.innerHTML = descriptions['domowik'];
+      return window.layer.draw();
     }, false);
     document.getElementById('swiecnik').addEventListener('click', function() {
       var q;
       loadFromGet('img_here', mainImgs[4], [drags[6]], swiecnik, window.layer, con);
       q = document.getElementById('desc');
-      return q.innerHTML = descriptions['swiecnik'];
+      q.innerHTML = descriptions['swiecnik'];
+      return window.layer.draw();
     }, false);
   };
 });
@@ -259,13 +369,13 @@ $(document).ready(function() {
 
 /*****olac to i sciagnac totem jquery plugin
     mainimg = new Image()
-  mainimg.src = image_path('mamuna.png') 
+  mainimg.src = image_path('mamuna.png')
   testimg = new Image()
   testimg.src = image_path('strona_pogladowa.png')
   lapy = []
   lapy[0] = new Image()
   lapy[0].src = image_path('mamuna_lapy.png')
-  
+
   down = []
   up = []
   $('#swap_stuff li').( ->
@@ -280,7 +390,7 @@ $(document).ready(function() {
     else
       down.push($('#swap_stuff ').last().detach())
       $('#swap_stuff ').first().append(up.pop())
-      
+
       return
   down = ->
     if $('#swap_stuff li').last().attr('id') == 'last'
@@ -289,11 +399,11 @@ $(document).ready(function() {
       tp = $('#swap_stuff ').first().detach()
       up.push(tp)
       $('#swap_stuff ').last().append(down.pop())
-      
+
       return
   $('#up').click( -> up() )
   $('#down').click( -> down() )
- 
+
   swapup = (im1,im2) ->
     tmp = document.createElement('div')
     im1.parentNode.insertBefore(tmp,im1)
@@ -306,16 +416,16 @@ $(document).ready(function() {
 
 /*
    tmp = document.getElementById('img_here')
-    
-      
-     
+
+
+
    testimg = new Image()
    testimg.src = image_path('mamuna_lapy.png')
    testimg.setAttribute('id','drag1')
    testimg.style.position = 'absolute'
-   
+
    testimg.style.left = "679px"
-   testimg.style.top = "200px" 
+   testimg.style.top = "200px"
    tmp.innerHTML = ''
    img = document.createElement('img')
    img.src = image_path('mamuna.png')
@@ -325,18 +435,18 @@ $(document).ready(function() {
    tmp.appendChild(img)
    tmp.appendChild(testimg)
    dragSrc =  null
-   x = y = null 
+   x = y = null
    document.getElementById('drag1').addEventListener('dragstart', (e) ->
-  
+
      e.dataTransfe r.setDragImage(e.target,153,98)
      dragSrc = this
-     
-     
+
+
    )
-  
+
    con.addEventListener('drop', (e) ->
     x = e.pageX
-    y = e.pageY         
+    y = e.pageY
     e.preventDefault()
     image = new Kinetic.Image
       draggable: true,
@@ -345,16 +455,16 @@ $(document).ready(function() {
     layer.add(image)
     imageObj = new Image()
     imageObj.src = dragSrc.src
-    
+
     imageObj.onload = ->
       image.setImage(imageObj)
       layer.draw()
     )
-       
-       
-   
-    
- 
+
+
+
+
+
   ,false )
  */
 
