@@ -1,0 +1,25 @@
+%html
+  %head
+    %title result.html
+    %body{:style => "background-image: url('/assets/background.jpg');"}
+    .content{:style => "text-align:center;"}
+      %table
+        %tr
+          %td{:colspan => "2", :style => "line-height: 0.2;"}
+            %p{:style => "margin-left:15px;font-size:35px"} 
+              %img{src: '/assets/baner_nazwa.png'}
+            %p{:style => "margin-left:15px;font-size:23px"} strachy inspirowane polskim folklorem
+          %td{:style => "text-align:right;height:90px;"}
+            %input.btn{:type => "button", :value => "Galeria"}/
+            %input.btn{:type => "button", :value => "Co to jest?"}/
+          %td
+        %tr
+          %td{:style => "width:600px;"}
+           .mainwindow#result
+           %input.btn{ :value => "Drukuj!", id: "print"}/
+           %input.btn{ :value => "Zapisz!", id: "save"}/
+          %td{:style => "width:438px; height:441px;"}
+            .mainsmall#img_here
+              %img{src:'',id: 'rpimg', alt: "Wybierz stwora ->"}
+            .descwindow
+  %body
