@@ -47,7 +47,8 @@
             .mainwindow#canvas
             .titlewindow
               %input#nazwa{:name => "nazwa", :type => "text", :value => " Tu wpisz imię swojego cudaka..."}/
-            %input.btn{:type => "image", src: "/assets/napis_gotowe.png", :value => "Gotowe!", id: "gotowe"}/
+              %a{href: "/canv/result.html"}
+                %input.btn{:type => "image", src: "/assets/napis_gotowe.png", :value => "Gotowe!", id: "gotowe"}/
           %td{:style => "width:438px; height:441px;"}
             .mainsmall#img_here
               %img{src:'',id: 'rpimg', alt: "Wybierz stwora ->"}

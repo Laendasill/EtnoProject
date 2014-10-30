@@ -177,7 +177,7 @@ $(document).ready ->
     
     window.stage.toDataURL(
       callback: (dataUrl) ->
-        #console.log(dataUrl)
+        
         smallcanvas = document.createElement('canvas')
         smallcanvas.setAttribute('id', "smcav")
         smallcanvas.setAttribute('width', 500)
@@ -186,11 +186,15 @@ $(document).ready ->
         image.src = dataUrl
         #console.log(image)
         q = smallcanvas.getContext("2d")
-
+        console.log("qwerty")
+        document.onload = ->
+        result = document.getElementById('result')
+        result.appendChild(placeimage)
         q.drawImage(image,0,0)
         qw = smallcanvas.toDataURL()
+        placeimage = new Image()
+        placeimage.src = qw
         
-        )
     smallcanvas = document.createElement('canvas')
     smallcanvas.setAttribute('id', "smcav")
     smallcanvas.setAttribute('width', 500)

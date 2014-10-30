@@ -309,7 +309,7 @@ $(document).ready(function() {
     }
     window.stage.toDataURL({
       callback: function(dataUrl) {
-        var image, qw, smallcanvas;
+        var image, placeimage, qw, smallcanvas;
         smallcanvas = document.createElement('canvas');
         smallcanvas.setAttribute('id', "smcav");
         smallcanvas.setAttribute('width', 500);
@@ -318,7 +318,15 @@ $(document).ready(function() {
         image.src = dataUrl;
         q = smallcanvas.getContext("2d");
         q.drawImage(image, 0, 0);
-        return qw = smallcanvas.toDataURL();
+        qw = smallcanvas.toDataURL();
+        placeimage = new Image();
+        placeimage.src = qw;
+        return document.ready = function() {
+          var result;
+          result = document.getElementById('result');
+          result.appendChild(placeimage);
+          return alert("you");
+        };
       }
     });
     smallcanvas = document.createElement('canvas');
