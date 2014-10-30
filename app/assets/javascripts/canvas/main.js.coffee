@@ -184,35 +184,34 @@ $(document).ready ->
         smallcanvas.setAttribute('height', 500)
         image = new Image()
         image.src = dataUrl
+        q = smallcanvas.getContext('2d')
+        image.onload = ->
+          q.drawImage(image,0,0,500,500,0,0,500,500)
+          url = smallcanvas.toDataURL()
+          window.open(url,"toDataUrl() image","width=500, heigth=500")
+          console.log(url)
         #console.log(image)
-        q = smallcanvas.getContext("2d")
-        console.log("qwerty")
-        document.onload = ->
-        result = document.getElementById('result')
-        result.appendChild(placeimage)
-        q.drawImage(image,0,0)
-        qw = smallcanvas.toDataURL()
-        placeimage = new Image()
-        placeimage.src = qw
         
-    smallcanvas = document.createElement('canvas')
-    smallcanvas.setAttribute('id', "smcav")
-    smallcanvas.setAttribute('width', 500)
-    smallcanvas.setAttribute('height', 500)
-
-    q = smallcanvas.getContext("2d")
-
-
-
-
-    url = smallcanvas.toDataURL()
-
-
-    url = smallcanvas.toDataURL();
-    #window.open(url,"toDataUrl() image","width=500, heigth=500")
-
+      #  document.onload = ->
+      #  result = document.getElementById('result')
+      #  result.appendChild(placeimage)
+      #  
+      #  qw = smallcanvas.toDataURL()
+      #  placeimage = new Image()
+      #  placeimage.src = qw
+                     
+    
+    
+        
+            
+    
+    
+        
+        
+       
+    
     )
-
+  )
 
   addLeft(ktlowie[0],staticlayer,'ogien')
   addLeft(ktlowie[1],staticlayer,'woda')

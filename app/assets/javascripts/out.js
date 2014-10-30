@@ -294,7 +294,7 @@ $(document).ready(function() {
   window.currentTlow = null;
   name = 's';
   document.getElementById('gotowe').addEventListener('click', function(e) {
-    var databack, datafront, finElements, functions, q, smallcanvas, tmp, url, _j, _len;
+    var databack, datafront, finElements, functions, q, tmp, _j, _len;
     datafront = window.context.getImageData(0, 0, 500, 500);
     databack = window.staticlayer.getContext('2d').getImageData(0, 0, 500, 500);
     tab = window.layer.find('.dragged');
@@ -307,35 +307,25 @@ $(document).ready(function() {
       tmp = key.image().src;
       finElements.push(functions[translate[tmp.substr(tmp.lastIndexOf('/') + 1)]]);
     }
-    window.stage.toDataURL({
+    return window.stage.toDataURL({
       callback: function(dataUrl) {
-        var image, placeimage, qw, smallcanvas;
+        var image, smallcanvas;
         smallcanvas = document.createElement('canvas');
         smallcanvas.setAttribute('id', "smcav");
         smallcanvas.setAttribute('width', 500);
         smallcanvas.setAttribute('height', 500);
         image = new Image();
         image.src = dataUrl;
-        q = smallcanvas.getContext("2d");
-        q.drawImage(image, 0, 0);
-        qw = smallcanvas.toDataURL();
-        placeimage = new Image();
-        placeimage.src = qw;
-        return document.ready = function() {
-          var result;
-          result = document.getElementById('result');
-          result.appendChild(placeimage);
-          return alert("you");
+        q = smallcanvas.getContext('2d');
+        return image.onload = function() {
+          var url;
+          q.drawImage(image, 0, 0, 500, 500, 0, 0, 500, 500);
+          url = smallcanvas.toDataURL();
+          window.open(url, "toDataUrl() image", "width=500, heigth=500");
+          return console.log(url);
         };
       }
     });
-    smallcanvas = document.createElement('canvas');
-    smallcanvas.setAttribute('id', "smcav");
-    smallcanvas.setAttribute('width', 500);
-    smallcanvas.setAttribute('height', 500);
-    q = smallcanvas.getContext("2d");
-    url = smallcanvas.toDataURL();
-    return url = smallcanvas.toDataURL();
   });
   addLeft(ktlowie[0], staticlayer, 'ogien');
   addLeft(ktlowie[1], staticlayer, 'woda');
