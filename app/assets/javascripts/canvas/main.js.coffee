@@ -188,8 +188,17 @@ $(document).ready ->
         image.onload = ->
           q.drawImage(image,0,0,500,500,0,0,500,500)
           url = smallcanvas.toDataURL()
-          window.open(url,"toDataUrl() image","width=500, heigth=500")
+          #window.open(url,"toDataUrl() image","width=500, heigth=500")
           console.log(url)
+          
+          $.ajax
+            url: "/canv/create",
+            type: "POST",
+            data: {file: url, title: name},
+            success: ->
+              alert("succes")
+            error: (e) ->
+              alert(@.data)
         #console.log(image)
         
       #  document.onload = ->

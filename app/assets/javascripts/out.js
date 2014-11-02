@@ -46,6 +46,10 @@ addImage = function(element, coord, i) {
     id: i,
     name: "dragimage"
   });
+  validcoords[i] = {
+    x: 0,
+    y: 0
+  };
   validcoords[i].x = kimg.getPosition().x;
   validcoords[i].y = kimg.getPosition().y;
   if (window.stage.find('.tlow').length === 0) {
@@ -85,7 +89,7 @@ onDragEnd = function(e) {
   console.log(window.stage.find('.tlow').length);
   drag = e.target;
   test = isNearOutline(drag, droprect[0]);
-  console.log(drag.getPosition().x - 520, ":", drag.getPosition().y);
+  console.log(drag.getPosition().x - 520, ":", drag.getPosition().y, "dragid=" + (drag.id()));
   if (test) {
     validcoords[drag.id()].x = drag.getPosition().x;
     validcoords[drag.id()].y = drag.getPosition().y;
@@ -102,7 +106,7 @@ onDragEnd = function(e) {
 };
 
 module.exports = function(where, mainImg, dropElemts, coords, layer, container, group) {
-  var c, clean, dragSrc, ims, key, minX, minY, n, offset, q, shpes, _i, _j, _len;
+  var c, clean, dragSrc, existingIds, ims, key, minX, minY, n, offset, q, shpes, _i, _j, _len;
   shpes = null;
   c = document.getElementById('img_here');
   c.innerHTML = '';
@@ -130,8 +134,9 @@ module.exports = function(where, mainImg, dropElemts, coords, layer, container, 
   }
   ims = [];
   n = dropElemts.length;
+  existingIds = window.stage.find(".dragged").length;
   for (q = _j = 0; 0 <= n ? _j < n : _j > n; q = 0 <= n ? ++_j : --_j) {
-    addImage(dropElemts[q], coords[q], q);
+    addImage(dropElemts[q], coords[q], q + existingIds);
   }
   offset = $(container).offset();
   minX = parseInt(offset.left);
@@ -321,8 +326,21 @@ $(document).ready(function() {
           var url;
           q.drawImage(image, 0, 0, 500, 500, 0, 0, 500, 500);
           url = smallcanvas.toDataURL();
-          window.open(url, "toDataUrl() image", "width=500, heigth=500");
-          return console.log(url);
+          console.log(url);
+          return $.ajax({
+            url: "/canv/create",
+            type: "POST",
+            data: {
+              file: url,
+              title: name
+            },
+            success: function() {
+              return alert("succes");
+            },
+            error: function(e) {
+              return alert(this.data);
+            }
+          });
         };
       }
     });

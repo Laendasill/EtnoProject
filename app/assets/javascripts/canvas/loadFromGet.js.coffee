@@ -18,7 +18,7 @@ addImage = (element,coord,i) ->
     id: i,
     name: "dragimage"
 
-
+  validcoords[i] = { x:0, y:0 }
   validcoords[i].x = kimg.getPosition().x
   validcoords[i].y = kimg.getPosition().y
 
@@ -72,7 +72,7 @@ onDragEnd = (e) ->
   console.log(window.stage.find('.tlow').length)
   drag = e.target
   test = isNearOutline(drag,droprect[0])
-  console.log(drag.getPosition().x-520,":",drag.getPosition().y)
+  console.log(drag.getPosition().x-520,":",drag.getPosition().y,"dragid=#{drag.id()}")
 
   if test
 
@@ -127,12 +127,12 @@ module.exports = (where,mainImg,dropElemts,coords,layer,container,group)->
 
   n = dropElemts.length
 
-
+  existingIds = window.stage.find(".dragged").length
 
 
 
   for q in [0...n]
-    addImage(dropElemts[q],coords[q],q)
+    addImage(dropElemts[q],coords[q],q+existingIds)
 
 
    # q.style.left = coords[i].left

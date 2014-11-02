@@ -5,7 +5,7 @@ class CanvController < ApplicationController
   
   def create
     @Image = Image.create(image_params)
-    
+    #TODO handle base64imagetype
       
     
   end
